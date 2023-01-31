@@ -1,0 +1,100 @@
+** 8/12/2021 **
+Bug Fixes
+---------
+- Changed filebrowser filter syntax for loading new CT scans. *.nii.gz appeared to break things for newer macOS (10.15+) systems.
+
+** 6/1/18 **
+Bug Fixes
+---------
+- Lead dimensions are now n_rows by n_columns, where electrodes are
+  numbered along rows.
+
+** 1/30/18 **
+- Added labelled RAS axes at center of brain
+- Changed "selected" color to hot pink
+- When selected point is in a localized contact, the appropriate entry in the contacts menu is highlighted
+- Added CT file name above slice view
+- Now displaying lead dimensions
+- Contact menu now allows for multiple selection and deletion
+
+Bug Fixes
+---------
+- Loading a new CT resets contact panel
+- Removing a lead in the lead definition removes that lead's contacts from the contact panel
+
+
+
+** 11-21-17 : v2.0.1 **
+- Save window replaced by single button + checkbox in general task bar
+- "S" key bound to "Submit" button
+- CT threshold configurable from within VoxTool
+
+Bug Fixes
+---------
+- AutoMicro feature no longer causes lead definition window to silently crash
+- Loading a new CT now removes the old CT from the window
+
+Known Issues
+------------
+- Loading a new CT doesn't clear contact panel
+- Removing a lead in the lead definition lead window doesn't propagate to contact panel
+
+
+**10-26-17**
+- added README
+Bug Fixes
+---------
+- Save window now updates file extension correctly
+- to_vox_mom now rounds to nearest integer
+
+
+**8-14-17**
+Features
+-------
+- Outputs now all saved as integers
+- Outputs now include coordinates for bipolar pairs
+
+Bug Fixes
+---------
+- 'Save as vox_mom' now works again
+
+**7-27-17**
+
+Features
+--------
+- 'Load Scan' button now brings up window asking for threshold and image file, with button for file browser
+
+
+Bug Fixes
+---------
+- Lead definitions can once again be appended to after inital definition
+- tsv outputs are now ints, rather than floats
+
+
+**7-24-17**
+Features
+--------
+
+- Contact list updates when loading contacts from JSON
+- Micro-contact type list starts at None
+- Micro lead names say how many microcontacts or microwires are on the lead
+
+
+
+**7-14-2017**
+
+Features
+--------
+
+- Added support for micro-macro leads
+  * micro-contact spacing defined in config.yml
+  * Lead definition includes menu with supported micro-macro leads, or None
+  * "Add Micro-Contacts" button interpolates microcontacts for every lead marked as containing microcontacts
+- Added "Save as vox_mom" button to save localization in old TSV format ('VOX_coords_mother')
+- Renamed "Save coordinates" to "Save as JSON"
+- Delete button in "Define Leads" popup now actually works
+
+Known Issues
+------------
+- "Load configuration" button does not work with micro-macros
+- Main window components out of proportion.

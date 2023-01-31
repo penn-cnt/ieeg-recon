@@ -1,0 +1,44 @@
+name: vt
+channels:
+- free
+- defaults
+- conda-forge
+dependencies:
+- apptools=4.4.0=py27_0
+- configobj=5.0.6=py27_0
+- envisage=4.5.1=py27_0
+- freetype=2.5.5=1
+- libpng=1.6.22=0
+- mayavi=4.5.0=py27_0
+- mkl=11.3.3=0
+- numpy=1.11.2=py27_0
+- openssl=1.0.2j=0
+- pip=9.0.1=py27_1
+- pyface=5.1.0=py27_0
+- pygments=2.1.3=py27_0
+- pyqt=4.11.4=py27_4
+- python=2.7.13=0
+- python.app=1.2=py27_4
+- pyyaml=3.12=py27_0
+- qt=4.8.7=4
+- readline=6.2=2
+- setuptools=27.2.0=py27_0
+- sip=4.18=py27_0
+- six=1.10.0=py27_0
+- sqlite=3.13.0=0
+- tk=8.5.18=0
+- traits=4.6.0=py27_0
+- traitsui=5.1.0=py27_0
+- vtk=6.3.0=py27_1
+- wheel=0.29.0=py27_0
+- yaml=0.1.6=0
+- zlib=1.2.8=3
+- pip:
+  - cycler==0.10.0
+  - matplotlib==1.5.3
+  - nibabel==2.1.0
+  - pyparsing==2.1.10
+  - python-dateutil==2.6.0
+  - pytz==2016.10
+  - scipy==0.18.1
+

@@ -1,0 +1,106 @@
+
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title></title>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<style type="text/css">
+.sub-report-title {}
+.run-title {}
+
+h1 { padding-top: 35px; }
+h2 { padding-top: 20px; }
+h3 { padding-top: 15px; }
+
+.elem-desc {}
+.elem-caption {
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+.elem-filename {}
+
+div.elem-image {
+  width: 100%;
+  page-break-before:always;
+}
+
+.elem-image object.svg-reportlet {
+    width: 100%;
+    padding-bottom: 5px;
+}
+body {
+    padding: 65px 10px 10px;
+}
+
+.boiler-html {
+    font-family: "Bitstream Charter", "Georgia", Times;
+    margin: 20px 25px;
+    padding: 10px;
+    background-color: #F8F9FA;
+}
+
+div#boilerplate pre {
+    margin: 20px 25px;
+    padding: 10px;
+    background-color: #F8F9FA;
+}
+
+#errors div, #errors p {
+    padding-left: 1em;
+}
+</style>
+</head>
+<body>
+
+<noscript>
+    <h1 class="text-danger"> The navigation menu uses Javascript. Without it this report might not work as expected </h1>
+</noscript>
+<div id="Summary">
+<h1 class="sub-report-title">Summary</h1>
+
+<div id="datatype-figures_desc-summary_suffix-T1w">
+<ul class="elem-desc">
+    <li>Subject ID: <code>{subject}</code></li>
+    <li>Clinical Session: <code>{cs}</code></li>
+    <li>Reference Session: <code>{rs}</code></li>
+    <li>Subject Source Directory: <code>{source_dir}</code></li>
+    <li>Subject Derivatives Output Directory: <code>{derivatives_dir}</code></li>
+</ul>
+</div>
+</div>
+
+<div id="Anatomical">
+<h1 class="sub-report-title">Pre-Implant MRI to Post-Implant CT Registration</h1>
+
+<div id="datatype-figures_desc-conform_extension-['.html']_suffix-T1w">
+<h3 class="elem-title">Anatomical Conformation</h3>
+
+<ul class="elem-desc">
+    <li>Input T1w image (reference MRI): <code>{reference_mri}</code></li>
+    <li>Input CT image (post-implant CT): <code>{post_ct}</code></li>
+    <li>Output orientation: RAS</li>
+</ul>
+</div>
+
+<div id="datatype-figures_suffix-dseg">
+<h3>Results of Pre-Implant MRI to Post-Implant CT Registration</h3>
+
+<p>Results of the linear (6 d.o.f) alignment of the T1w reference onto the post-implant CT. Hover on the panels with the mouse pointer to transition between both spaces.</p>
+
+<object class="svg-reportlet" type="image/svg+xml" data="{svg_t00_to_t01_ct_mri}"></object>
+</div>
+
+<div id="datatype-figures_regex_search-True_space-.*_suffix-T1w">
+<h3 class="run-title">Transformed Electrodes Scatterplot</h3>
+
+<p class="elem-desc">The scatterplot below shows the final electrode locations in the space of the reference image (traditionally the pre-implant MRI), with the thresholded CT scan also in the reference image space. If everything aligns appropriately here, all of the previous steps in the pipeline worked successfully.</p>
+
+{html_plot}
+
+</body>
+</html>
