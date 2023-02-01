@@ -26,6 +26,8 @@ intersphinx_mapping = {
 }
 intersphinx_disabled_domains = ['std']
 
+sphinx_tabs_valid_builders = ['linkcheck']
+
 templates_path = ['_templates']
 
 # -- Options for HTML output

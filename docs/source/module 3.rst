@@ -2,10 +2,6 @@ Module 3
 ==========
 
 
-Description
-------------
-
-
 
 
 .. autosummary::
