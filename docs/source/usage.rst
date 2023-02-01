@@ -1,7 +1,7 @@
 Usage
 =====
 
-.. _installation:
+.. _install:
 
 Installation
 ------------
@@ -46,5 +46,9 @@ CT scans, MRI scans, and coordinate files should be arranged in BIDS format with
    └── sub-RID0050
 
 
+.. autosummary::
+   :toctree: generated
+
+   ieeg-recon
 
 
