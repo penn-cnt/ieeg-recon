@@ -5,6 +5,10 @@ IEEG-recon
 
 IEEG-recon is a modular pipeline to reconstruct iEEG electrode locations in MRI images. The pipeline is available in both MATLAB and python computing environments. 
 
+.. image:: docs/source/images/OHBM.png
+  :width: 800
+  :alt: IEEG-recon pipeline
+
 
 Paper
 ----------
