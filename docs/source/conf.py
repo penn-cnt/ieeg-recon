@@ -3,7 +3,7 @@
 # -- Project information
 
 project = 'ieeg-recon'
-copyright = '2023'
+copyright = '2023, Alfredo Lucas, Brittany H. Scheid, Nishant Sinha'
 author = 'Alfredo Lucas, Brittany Scheid, Nishant Sinha'
 
 release = '0.1'
@@ -17,6 +17,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
+    'sphinx_tabs.tabs'
 ]
 
 intersphinx_mapping = {

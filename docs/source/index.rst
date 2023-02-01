@@ -1,7 +1,17 @@
 IEEG-recon
 ===================================
 
-**IEEG-recon** is a modular pipeline to reconstruct iEEG electrode locations in MRI images. The pipeline is available in both MATLAB and python computing environments.
+**IEEG-recon** is a modular pipeline used to reconstruct intracranial electrode coordinates from a post-implant CT scan, into a pre-implant MRI.  The pipeline is available in both MATLAB and python computing environments.
+
+iEEG-Recon is divided into 3 modules:
+
+* Module 1 consists of an electrode labeling GUI called VoxTool, available here: https://github.com/penn-cnt/voxTool. VoxTool allows the user to label the electrode locations in the post-implant CT scan.
+* Module 2 registers the CT scan to the pre-implant MRI and transforms the VoxTool generated coordinates from CT space to MRI space
+* Module 3 maps each electrode to a specific ROI defined by a brain atlas registered to the pre-implant MRI
+
+.. note::
+
+   This project is under active development.
 
 
 .. image:: images/OHBM.png
@@ -12,9 +22,6 @@ IEEG-recon
 Check out the :doc:`usage` section for further information, including
 how to :ref:`installation` the project.
 
-.. note::
-
-   This project is under active development.
 
 Contents
 --------
@@ -22,4 +29,6 @@ Contents
 .. toctree::
 
    usage
-   api
+   module 1
+   module 2
+   module 3
