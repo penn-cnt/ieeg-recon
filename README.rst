@@ -9,6 +9,9 @@ IEEG-recon is a modular pipeline to reconstruct iEEG electrode locations in MRI 
   :width: 800
   :alt: IEEG-recon pipeline
 
+Get Started
+------------
+See https://ieee-recon.readthedocs.io/
 
 Paper
 ----------
