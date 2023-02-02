@@ -1,3 +1,10 @@
+.. role:: red
+.. role:: blue
+.. role:: green
+.. role:: pink
+.. role:: cyan
+
+
 Usage
 =====
 
