@@ -21,7 +21,7 @@ To use IEEG-recon, first clone the repository:
 
 
 Python Installation
----------------------
+^^^^^^^^^^^^^^^^^^^^
 
 * Create conda environment from dependancies 
 

@@ -1,115 +1,79 @@
-
-.. role:: red
-.. role:: blue
-.. role:: green
-.. role:: pink
-.. role:: cyan
-
-
-
-
-
 Module 1
 ==========
 
-Label electrodes in CT scans using **VoxTool 2.0**, a graphical user interface application. 
-
-Description
---------------
-
-In this module, electrode locations will be manually identified on a subject's CT scan. 
+Electrode Labeling using VoxTool
 
 
-* **Inputs**: Post-implant CT, electrode labels
-* **Output**: Electrode coordinates in CT space
+* Inputs: 
+   - Post-implant CT
+* Output: 
+   - Electrode coordinates in CT space
 
+
+VoxTool 2.0
+-------------
 
 Setup
----------
+^^^^^^
 
-Create a conda environment from the environment file in the VoxTool folder. 
-This creates an environment named `vt` in which to run voxTool.
+- Create a Conda environment from the definition file
 
 .. code-block:: console
 
   $ cd voxTool
-  $ conda env install -f conda_env.yml
+  $ conda env create -f conda_env.yml
 
+This creates an environment named `vt` in which to run voxTool.
 
+Running
+^^^^^^^^
 
-Run
-------------
-
-Activate the conda environment and launch the program: 
+* Activate the conda environment:
 
 .. code-block:: console
 
-   $ source activate vt
+   $ conda activate vt
+
+* Launch the program:
+
+.. code-block:: console
+
    $ python launch_pyloc.py
 
 
-Label Electrodes
------------------
+Usage
+^^^^^^
 
-.. image:: images/mod1_single_contact.png
-  :width: 800
-  :alt: Single contact selected
-  :align: center
-
-.. centered::
-   VoxTool GUI
-
-1. For each subject, click on ``Load Scan`` in the bottom left corner to 
-   load their CT file, adjusting the threshold as necessary. To adjust the
+0. Load a CT file, adjusting the threshold as necessary. To adjust the
    threshold, change the number in the bar at the top of the window
    marked ``CT Threshold``, then press the ``Update`` button next to it.
-2. If continuing a previous localization: load the existing coordinates
+1. If continuing a previous localization: load the existing coordinates
    from a JSON coordinate file using the ``Load Coordinates`` button.
-3. Press ``Define leads`` to set the names, shapes, types (e.g. Depth, Grid, Strip), and microcontacts
-   for each implanted lead. Shapes are rows x columns. Press confirm on the dialog when complete. 
-4. To label the electrodes: select the lead you wish to localize in the dropdown menu labeled ``Label``
-   in the upper left corner. Ensure that the contact number and X,Y position are consistent. 
-
-5. Click on the CT to highlight the next contact on that lead, then press
+2. Press ``Define leads`` to set the names, shapes, types, and microcontacts
+   for each implanted lead. Shapes are rows x columns.
+3. Select the lead you wish to localize in the dropdown menu labeled ``Label``
+   in the upper left corner
+4. Click on the CT to highlight the next contact on that lead, then press
    ``Submit`` to mark its location
-
    - Alternatively, press the ``Seeding`` button to turn on seeding. VoxTool
      will attempt to extrapolate the locations of the remaing contacts
      as you select them, incrementing the contact number. Be sure to double-check that
      the results make sense, as occasionally two contacts
      will be given the same location
-
    - Alternatively, add the ends of a strip or depth
      or the corners of the grid with the ``Submit`` button, then press
      the ``Interpolate`` button. VoxTool will attempt to fill in the lead.
      It may not be completely successful. Pressing ``Interpolate`` again
      may interpolate additional contacts.
-
-     .. note::
-
-         The list of contact names is sorted by lead name, and within each 
-         lead by contact number. The ``Interpolate`` button does not always assign
-         contact numbers in the expected order, so be sure to double-check 
-         that the numbers it has assigned are the ones that you want after using 
-         it. 
-
-6. Press ``Add Micro-Contacts`` to add micro-contacts to any macro/micro leads.
-
-7. Press the ``Save as`` button to save the list of localized contacts.
+5. Press ``Add Micro-Contacts`` to add micro-contacts to any macro/micro leads.
+6. Press the ``Save as`` button to save the list of localized contacts.
    If the checkbox labelled ``Include Bipolar Pairs`` is checked, locations
    will also be saved for the midpoint of each pair of neighboring contacts.
-
-   Save the electrode labels as a text file in the following location:
-   ``BIDS/sub-<subjectID>/ses-<sessionName>/ieeg/sub-<subjectID>_ses-<sessionName>_space-T01ct_desc-vox_electrodes.txt``
-
- 
-
-   
 
 
 
 Keyboard Shortcuts
--------------------
+^^^^^^^^^^^^^^^^^^^
 
 +---------------------------------+--------------+
 | Button                          | Key Sequence |
@@ -132,61 +96,14 @@ Keyboard Shortcuts
 +---------------------------------+--------------+
 
 
+Other Notes
+^^^^^^^^^^^^^^^^^^^
+* The list of contact names is sorted by lead name, and within each 
+lead by contact number. The ``Interpolate`` button does not always assign
+contact numbers in the expected order, so be sure to double-check 
+that the numbers it has assigned are the ones that you want after using 
+it. 
 
-Example
--------------------
-
-In this example, we label electrodes for subject RID0031 in the post-implant CT scan collected during their first clinical session. 
-
-*  Load CT scan from BIDS/sub-RID0031/ses-clinical01/ct/sub-RID0031_ses-clinical01_acq-3D_space-T01ct_ct.nii.gz
-
-*  Define Leads
-
-   .. image:: images/mod1_define_leads.png
-     :width: 300
-     :alt: Define leads dialogue 
-     :align: center
-
-   .. centered::
-      Define Leads Pop-Up Dialog
-
-* Label each electrode
-   -  Select first contact label in electrode (LA1), click on the corresponding contact (shown in pink).
-
-      .. image:: images/mod1_single_contact.png
-        :width: 700
-        :alt: Single contact selected
-        :align: center
-
-   -  Select final contact label in electrode (LA10), set X: 10, Y: 1, click on the corresponding contact
-
-      .. image:: images/mod1_contact_ends.png
-        :width: 700
-        :alt: Single contact selected
-        :align: center
-
-   -  Click interpolate to label all contacts in the electrode
-
-      .. image:: images/mod1_interpolated.png
-        :width: 700
-        :alt: Single contact selected
-        :align: center
-
-* Repeat above procedure until all electrodes are labeled. 
-
-
-
-*  Save to:
-| BIDS/
-|  :blue:`sub-RID0031`/
-|     :red:`ses-clinical01`/
-|           ieeg/
-|              :blue:`sub-RID0031_`:red:`ses-clinical01`\_ :green:`space-T01ct`\_desc-vox\_ :pink:`electrodes`.txt
-
-   .. image:: images/mod1_saveas.png
-     :width: 600
-     :alt: SaveAs screen
-     :align: center
 
 
 
