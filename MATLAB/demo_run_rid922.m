@@ -4,14 +4,13 @@ close all
 
 %% Make ieeg_recon object
 
-subject_rid922 = ieeg_recon;
 
-subject_rid922.preImplantMRI = 'exampleData/sub-RID0922/ses-clinical01/anat/sub-RID0922_ses-clinical01_acq-3D_space-T00mri_T1w.nii.gz';
-subject_rid922.postImplantCT = 'exampleData/sub-RID0922/ses-clinical01/ct/sub-RID0922_ses-clinical01_acq-3D_space-T01ct_ct.nii.gz';
-subject_rid922.postImplantCT_electrodes = 'exampleData/sub-RID0922/ses-clinical01/ieeg/sub-RID0922_ses-clinical01_space-T01ct_desc-vox_electrodes.txt';
-subject_rid922.output = 'exampleData/sub-RID0922/derivatives';
-subject_rid922.fslLoc = '/usr/local/fsl/bin';
-subject_rid922.itksnap = '/Applications/ITK-SNAP.app/Contents/bin';
+subID = 'sub-RID0922';
+ct_session = 'ses-clinical01';
+mri_session = 'ses-clinical01';
+BIDS_dir = '../exampleData';
+
+subject_rid922 = ieeg_recon(subID, ct_session, mri_session, BIDS_dir);
 subject_rid922.freeSurfer = '/Applications/freesurfer/7.3.2/bin';
 
 %% Run Module 1

@@ -3,17 +3,21 @@ clear
 close all
 warning off
 
+% Download Example Data: 
+% https://www.dropbox.com/sh/ylxc586grm0p7au/AAAs8QQwUo0VQOSweDyj1v_ta?dl=0
+
 %% Make ieeg_recon object
 
-subject_rid675 = ieeg_recon;
+subID = 'sub-RID0675';
+ct_session = 'ses-clinical01';
+mri_session = 'ses-clinical01';
+BIDS_dir = '../exampleData';
 
-subject_rid675.preImplantMRI = 'exampleData/sub-RID0675/ses-clinical01/anat/sub-RID0675_ses-clinical01_acq-3D_space-T00mri_T1w.nii.gz';
-subject_rid675.postImplantCT = 'exampleData/sub-RID0675/ses-clinical01/ct/sub-RID0675_ses-clinical01_acq-3D_space-T01ct_ct.nii.gz';
-subject_rid675.postImplantCT_electrodes = 'exampleData/sub-RID0675/ses-clinical01/ieeg/sub-RID0675_ses-clinical01_space-T01ct_desc-vox_electrodes.txt';
-subject_rid675.output = 'exampleData/sub-RID0675/derivatives';
-subject_rid675.fslLoc = '/usr/local/fsl/bin';
-subject_rid675.itksnap = '/Applications/ITK-SNAP.app/Contents/bin';
+subject_rid675 = ieeg_recon(subID, ct_session, mri_session, BIDS_dir);
+
+% Add path to library executables:
 subject_rid675.freeSurfer = '/Applications/freesurfer/7.3.2/bin';
+
 
 %% Run Module 1
 

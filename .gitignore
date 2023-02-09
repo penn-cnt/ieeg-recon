@@ -5,6 +5,9 @@
 ## Mac Filesystems ##
 .DS_Store
 
+# Data Files
+_build/
+exampleData/
 
 ### JupyterNotebooks ###
 # gitignore template for Jupyter Notebooks
@@ -98,6 +101,9 @@ docs/_build/
 .pybuilder/
 target/
 
+# MATLAB
+*.asv
+
 # Jupyter Notebook
 
 # IPython
@@ -136,6 +142,9 @@ venv.bak/
 # Spyder project settings
 .spyderproject
 .spyproject
+
+# VSCode Settings
+.vscode/
 
 # Rope project settings
 .ropeproject

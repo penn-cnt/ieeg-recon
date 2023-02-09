@@ -60,10 +60,7 @@ Example:
 
 
       % set up
-      subject_rid0031.preImplantMRI = 'BIDS/sub-RID0031/ses-clinical01/anat/sub-RID0031_ses-clinical01_acq-3D_space-T00mri_T1w.nii.gz';
-      subject_rid0031.postImplantCT = 'BIDS/sub-RID0031/ses-clinical01/ct/sub-RID0031_ses-clinical01_acq-3D_space-T01ct_ct.nii.gz';
-      subject_rid0031.postImplantCT_electrodes = 'BIDS/sub-RID0031/ses-clinical01/ieeg/sub-RID0031_ses-clinical01_space-T01ct_desc-vox_electrodes.txt';
-      subject_rid0031.output = 'BIDS/sub-RID0031/derivatives';
+      subject_rid0031= ieeg_recon(subID, ct_session, mri_session, BIDS_dir)
       subject_rid0031.fslLoc = '/usr/local/fsl/bin';
       subject_rid0031.itksnap = '/Applications/ITK-SNAP.app/Contents/bin';
       subject_rid0031.freeSurfer = '/Applications/freesurfer/7.3.2/bin';
