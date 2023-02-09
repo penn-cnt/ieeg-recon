@@ -13,38 +13,13 @@ Requirements
 -------------
 
 * `FSL <https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation>`_ >= 3.8.0 
-   * 
-* Greedy and C3D 
-   * Either: Install `ITK Snap <http://www.itksnap.org/pmwiki/pmwiki.php?n=Main.HomePage>`_ >= . Open ITK Snap and click on `Help` > `Install Command Line Tools`.
-   * Or: see `compile from source <http://www.itksnap.org/pmwiki/pmwiki.php?n=Documentation.CommandLine>`_ instructions to install without ITK-Snap. 
+* Greedy and C3D: 
 
-
-.. tabs::
-
-   .. tab:: Python
-
-      * `Anaconda <https://www.anaconda.com/products/distribution>`_
-
- .. tab:: Matlab
-
-      * Check that $FSLDIR is set and that the following lines are added to ~/Documents/MATLAB/startup.m file:
-      
-      .. code-block:: matlab
-
-       % FSL Setup
-        setenv( 'FSLDIR', '/path/to/fsl/bin' );
-        setenv('FSLOUTPUTTYPE', 'NIFTI_GZ');
-        fsldir = getenv('FSLDIR');
-        fsldirmpath = sprintf('%s/etc/matlab',fsldir);
-        path(path, fsldirmpath);
-        clear fsldir fsldirmpath;
-
-        % ITK snap Setup
-        setenv('ITKSNAPDIR', '/Applications/ITK-SNAP.app/Contents/bin');
-        itksnapdir = getenv('ITKSNAPDIR');
-        itksnapmpath = sprintf('%s',itksnapdir);
-        path(path,itksnapmpath)
-        clear itksnapdir itksnapmpath;
+   *  Install `ITK Snap <http://www.itksnap.org/pmwiki/pmwiki.php?n=Main.HomePage>`_ >= V3.2. Open ITK Snap and click on `Help` > `Install Command Line Tools`.
+   *  Or: see `compile from source <http://www.itksnap.org/pmwiki/pmwiki.php?n=Documentation.CommandLine>`_ instructions to install without ITK-Snap. 
+ 
+* `Anaconda <https://www.anaconda.com/products/distribution>`_ 
+* `MATLAB <https://matlab.mathworks.com>`_ >=2020a (only if using MATLAB tools)
 
 
 .. _install:
@@ -63,31 +38,47 @@ To use IEEG-recon, first clone the repository:
 
    .. tab:: Python
 
-      * Create conda environment from dependancies 
+      Create conda environment from dependancies: 
 
-      .. code-block:: py
+      .. code-block:: console
 
-         $ conda env create -f python/ieeg_recon_config.yml 
+         $ cd python
+         $ conda env create -f ieeg_recon_config.yml 
 
-   .. tab:: Matlab
+   .. tab:: MATLAB
 
-      Check that $FSLDIR is set and that the following lines are added to ~/Documents/MATLAB/startup.m file:
+      Set the FSLDIR and ITKSNAPDIR environment variables in ``~/../MATLAB/startup.m``
+
+      .. note :: 
+
+         You you may need to change the library paths
       
-      .. code-block:: matlab
+      .. code-block:: MATLAB
 
-         % FSL Setup
-        setenv( 'FSLDIR', '/path/to/your/fsl/installation' );
+         %% in MATLAB/startup.m
+         
+         % Set FSLDIR to FSL install location
+        setenv( 'FSLDIR', '/usr/local/fsl' );
         setenv('FSLOUTPUTTYPE', 'NIFTI_GZ');
         fsldir = getenv('FSLDIR');
         fsldirmpath = sprintf('%s/etc/matlab',fsldir);
         path(path, fsldirmpath);
         clear fsldir fsldirmpath;
 
+         % Set ITKSNAPDIR to ITK-Snap install location
+        setenv('ITKSNAPDIR', '/Applications/ITK-SNAP.app/Contents/bin');
+        itksnapdir = getenv('ITKSNAPDIR');
+        itksnapmpath = sprintf('%s',itksnapdir);
+        path(path,itksnapmpath)
+        clear itksnapdir itksnapmpath;
 
-Folder Setup
---------------
 
-CT scans, MRI scans, and coordinate files should be arranged in BIDS format with the following naming conventions. Example for subject `sub-RID0031` is shown: 
+
+Data Setup
+------------------
+
+| CT scans, MRI scans, and coordinate files should be arranged in BIDS format with the following naming conventions. 
+| Example for subject `sub-RID0031` is shown: 
 
 .. code-block:: console
 
@@ -105,6 +96,9 @@ CT scans, MRI scans, and coordinate files should be arranged in BIDS format with
    │           └── sub-RID0031_ses-research3T_acq-3D_space-T00mri_T1w.nii.gz
    ├── sub-RID0032
    └── sub-RID0050
+
+
+Data used for our examples can be `downloaded here <https://www.dropbox.com/sh/ylxc586grm0p7au/AAAs8QQwUo0VQOSweDyj1v_ta?dl=0>`_.
 
 
 .. autosummary::
