@@ -1,3 +1,5 @@
+.. sphinx-build -a docs/source tmp/
+
 IEEG-recon
 ===================================
 
@@ -5,8 +7,8 @@ IEEG-recon
 
 iEEG-Recon is divided into 3 modules:
 
-* :doc:`module 1` consists of an electrode labeling GUI called VoxTool, available here: https://github.com/penn-cnt/voxTool. VoxTool allows the user to label the electrode locations in the post-implant CT scan.
-* :doc:`module 2` registers the CT scan to the pre-implant MRI and transforms the VoxTool generated coordinates from CT space to MRI space
+* :doc:`module 1` consists of an electrode labeling GUI called VoxTool, which allows the user to label electrode locations in the post-implant CT scan.
+* :doc:`module 2` registers the CT scan to the pre-implant MRI and transforms the VoxTool-generated coordinates from CT space to MRI space
 * :doc:`module 3` maps each electrode to a specific ROI defined by a brain atlas registered to the pre-implant MRI
 
 .. note::
@@ -19,8 +21,7 @@ iEEG-Recon is divided into 3 modules:
   :alt: IEEG-recon pipeline
 
 
-Check out the :doc:`usage` section for further information, including
-how to :ref:`install` the project.
+Check out the :doc:`usage` section for further information, including project :ref:`install`.
 
 
 Table of Contents

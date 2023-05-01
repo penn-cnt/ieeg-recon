@@ -11,13 +11,14 @@
 Module 1
 ==========
 
-Label electrodes in CT scans using **VoxTool 2.0**, a graphical user interface application. 
+Purpose: Label electrodes in CT scans using **VoxTool 2.0**, a graphical user interface application. 
 
 
 Description
 --------------
 
 In this module, electrode locations will be manually identified on a subject's CT scan. 
+Make sure your input patient data is organized according to the pseudo-BIDS structure outlined in :ref:`Data Setup`.
 
 *  **Inputs**: 
   
@@ -30,6 +31,8 @@ In this module, electrode locations will be manually identified on a subject's C
   
 Setup
 ---------
+
+Make sure your input patient data is organized according to the pseudo-BIDS structure outlined in :ref:`Data Setup`. You can also run the tutorial with our `example data <https://www.dropbox.com/sh/ylxc586grm0p7au/AAAs8QQwUo0VQOSweDyj1v_ta?dl=0>`_.
 
 Create a conda environment from the environment file in the VoxTool folder. 
 This creates an environment named `vt` in which to run voxTool.

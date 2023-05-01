@@ -32,9 +32,24 @@ templates_path = ['_templates']
 
 # -- Options for HTML output
 
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'alabaster'  # sphinx-rtd-theme, alabaster
 html_static_path = ['_static']
 html_css_files = ['css/styles.css']
+
+# html_sidebars = {
+#     '**': [
+#         'about.html',
+#         'navigation.html',
+#         'relations.html',
+#         'searchbox.html',
+#         'donate.html',
+#     ]
+# }
+
+html_theme_options = {
+    'font_family': 'Arial',
+    'font_size': 12, 
+}
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'

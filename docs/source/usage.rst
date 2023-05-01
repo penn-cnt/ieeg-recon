@@ -6,20 +6,16 @@
 
 
 Usage
-=====
-
+==========
 
 Requirements
--------------
+------------
 
 * `FSL <https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation>`_ >= 3.8.0 
-
    *  Ensure that FSLDIR environment variable is set on your terminal path. 
 * Greedy and C3D: 
-
    *  Install `ITK Snap <http://www.itksnap.org/pmwiki/pmwiki.php?n=Main.HomePage>`_ >= V3.2. Open ITK Snap and click on `Help` > `Install Command Line Tools`.
    *  Or: see `compile from source <http://www.itksnap.org/pmwiki/pmwiki.php?n=Documentation.CommandLine>`_ instructions to install without ITK-Snap. 
- 
 *  `Anaconda <https://www.anaconda.com/products/distribution>`_ 
 *  `MATLAB <https://matlab.mathworks.com>`_ >=2020a (only if using MATLAB tools)
 
@@ -74,7 +70,7 @@ To use IEEG-recon, first clone the repository:
         path(path,itksnapmpath)
         clear itksnapdir itksnapmpath;
 
-
+.. _Data Setup:
 
 Data Setup
 ------------------
