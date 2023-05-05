@@ -33,5 +33,5 @@ Table of Contents
    module 2
    module 3
    troubleshooting
-   genindex
+
 

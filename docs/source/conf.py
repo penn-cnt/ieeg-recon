@@ -53,7 +53,7 @@ html_theme_options = {
     'github_button' : 'true',
     'github_type' : 'star',
     'github_user' : 'penn-cnt',
-    'github_repo' : 'https://github.com/penn-cnt/ieeg-recon'
+    'github_repo' : 'ieeg-recon'
 
 }
 
