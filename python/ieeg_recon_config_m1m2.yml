@@ -1,0 +1,19 @@
+name: ieeg_recon
+channels:
+  - https://fsl.fmrib.ox.ac.uk/fsldownloads/fslconda/public
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8.5
+  - ipython
+  - nibabel
+  - numpy
+  - pandas
+  - plotly
+  - pip=22.2.2
+  - pip:
+    - nipype
+    - niworkflows
+    - antspyx
+    - tensorflow
+    - antspynet

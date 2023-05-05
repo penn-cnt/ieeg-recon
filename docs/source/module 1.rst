@@ -22,12 +22,12 @@ Make sure your input patient data is organized according to the pseudo-BIDS stru
 
 *  **Inputs**: 
   
-   *  post-implant CT (`ct/...acq-3D_space-T01ct_ct.nii.gz`)
+   *  post-implant CT: ct/:blue:`sub-XXXX_`:red:`ses-YYYY`\_acq-3D\_\ :green:`space-T01ct`\_\ :pink:`ct`.nii.gz
    *  electrode labels
 
 *  **Output**: 
 
-   *  Electrode coordinates in CT space (`ieeg/...space-T01ct_desc-vox_electrodes.txt`)
+   *  Electrode coordinates in CT space: ieeg/:blue:`sub-XXXX_`:red:`ses-YYYY`\_\ :green:`space-T01ct`\_ :cyan:`desc-vox`\_\ :pink:`electrodes`.txt
   
 Setup
 ---------

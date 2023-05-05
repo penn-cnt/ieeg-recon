@@ -12,7 +12,7 @@ Module 2
 ==========
 
 
-Purpose: Register Post-implant CT to Pre-Implant MRI scan
+Purpose: Register Post-implant CT to pre-Implant MRI scan
 
 Description
 ----------------
@@ -20,29 +20,33 @@ Description
 In this module, each subject's CT and MRI images will be linearly aligned (co-registered). Electrode coordinates will be transformed from their native CT into MRI space.
 
 * Input Files: 
-   - Post-implant CT  (`ct/…acq-3D_space-T01ct_ct.nii.gz`)
-   - Pre-implant MRI  (`anat/…acq-3D_space-T00mri_T1w.nii.gz`)
-   - Electrode coordinates in CT space (`ieeg/...space-T01ct_desc-vox_electrodes.txt`)
+   - Pre-implant MRI: anat/:blue:`sub-XXXX_`:red:`ses-YYYY`\_acq-3D\_\ :green:`space-T00mri`\_\ :pink:`T1w`.nii.gz
+   - Post-implant CT: ct/:blue:`sub-XXXX_`:red:`ses-YYYY`\_acq-3D\_\ :green:`space-T01ct`\_\ :pink:`ct`.nii.gz
+   - Electrode coordinates in CT space: ieeg/:blue:`sub-XXXX_`:red:`ses-YYYY`\_\ :green:`space-T01ct`\_ :cyan:`desc-vox`\_\ :pink:`electrodes`.txt
+  
 * Output Files (in `sub-xxx/derivatives/ieeg_recon/module2/`): 
-   - Images:
+   - Quality Report:
+       - sub-xxxx_ses-xxxx_report.html
+       - sub-xxxx_ses-xxxx_itksnap_workspace.itksnap
+       - sub-xxxx_ses-xxxx_space-T00mri_desc-mm_electrodes_plot.html
+       - sub-xxxx_ses-xxxx_T00mri_T01ct_registration.svg
+       - sub-xxxx_ses-xxxx_space-T01ct_desc-vox_electrodes_itk_snap_labels.txt
+   - Image Files:
        - sub-xxxx_ses-xxxx_acq-3D_space-T00mri_ct_thresholded.nii.gz
        - sub-xxxx_ses-xxxx_acq-3D_space-T00mri_T1w_electrode_spheres.nii.gz
        - sub-xxxx_ses-xxxx_acq-3D_space-T01ct_T1w.nii.gz
        - sub-xxxx_ses-xxxx_acq-3D_space-T01ct_ct_ras_electrode_spheres.nii.gz
        - sub-xxxx_ses-xxxx_acq-3D_space-T01ct_ct_ras_thresholded.nii.gz
        - sub-xxxx_ses-xxxx_acq-3D_space-T01ct_ct_ras.nii.gz
-   - QA Report:
-       - sub-xxxx_ses-xxxx_report.html
-       - sub-xxxx_ses-xxxx_itksnap_workspace.itksnap
-       - sub-xxxx_ses-xxxx_space-T00mri_desc-mm_electrodes_plot.html
-       - sub-xxxx_ses-xxxx_T00mri_T01ct_registration.svg
    - Coordinate files:
        - sub-xxxx_ses-xxxx_space-T00mri_desc-mm_electrodes.txt
        - sub-xxxx_ses-xxxx_space-T00mri_desc-vox_electrodes.txt
        - sub-xxxx_ses-xxxx_electrode_names.txt
+       - sub-xxxx_ses-xxxx_orig_coords_in_mm.txt
    - Transformation Matrices:
-       - sub-xxxx_ses-xxxx_T00mri_to_T01ct.mat
-       - sub-xxxx_ses-xxxx_T01ct_to_T00mri.mat
+       - sub-xxxx_ses-xxxx_T00mri_to_T01ct_fsl.mat
+       - sub-xxxx_ses-xxxx_T01ct_to_T00mri_fsl.mat
+       - sub-xxxx_ses-xxxx_T00mri_to_T01ct_greedy.mat (if using Greedy)
 
    
 
@@ -54,13 +58,27 @@ First, make sure your input patient data is organized according to the pseudo-BI
 
 .. tabs::
 
+   .. tab:: Docker
+
+      .. code-block:: console
+         
+         $ ieeg_recon -s sub-RID0922 -m 2 -cs ses-clinical101 -rs ses-clinical01 -d absolute/path/to/exampleData
+
+         | Arguments:
+         | -s: subject ID
+         | -m: Module number
+         | -cs: name of session with CT scan
+         | -rs: name of session with reference MRI scan
+         | -d: path to BIDS directory
+         | -gc: (optional, recommended) run with Greedy 
+
    .. tab:: Python
 
       .. code-block:: console
 
          $ conda activate ieeg_recon
          $ cd python
-         $ python ieeg_recon.py -s sub-RID0922 -m 2 -cs ses-clinical101 -rs ses-clinical01 -d ../exampleData -gc
+         $ python ieeg_recon.py -s sub-RID0922 -m 2 -cs ses-clinical101 -rs ses-clinical01 -d absolute/path/to/exampleData -gc
 
          | Arguments:
          | -s: subject ID
@@ -85,20 +103,6 @@ First, make sure your input patient data is organized according to the pseudo-BI
         % Run Module 2
         fileLocations = subject_rid0922.module2;
 
-   .. tab:: Docker
-
-      .. code-block:: console
-         
-         $ ieeg_recon -s sub-RID0922 -m 2 -cs ses-clinical101 -rs ses-clinical01 -d ../exampleData
-
-         | Arguments:
-         | -s: subject ID
-         | -m: Module number
-         | -cs: name of session with CT scan
-         | -rs: name of session with reference MRI scan
-         | -d: path to BIDS directory
-         | -gc: (optional, recommended) run with Greedy 
-
 
 Optional Arguments (recommended)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -107,9 +111,11 @@ Optional Arguments (recommended)
 
 
 
-Quality Assessment
---------------------
+Module 2 Outputs
+-----------------
 
+Quality Report
+^^^^^^^^^^^^^^^^^
 Module 2 will generate a number of outputs including an html report that can be used to determine whether the coregistration worked properly.
 
 Example: ``sub-RID0922_ses-clinical01_report.html``:
@@ -118,6 +124,42 @@ Example: ``sub-RID0922_ses-clinical01_report.html``:
 .. raw:: html 
 
    <iframe src="_static/mod2_full_report.html" style="border:2px solid #adace6;" scrolling="no" height="1600px" width="120%"></iframe>
+
+
+Image Files
+^^^^^^^^^^^^^^
+
+Module 2 generates a number of transformed image files
+
+- `...acq-3D_space-T00mri_ct_thresholded.nii.gz`: Original CT scan (left) transformed to MRI (T00) space with an intensity threshold applied (right):
+  
+  .. image:: images/mod2_out_threshct.png
+    :width: 300
+    :alt: Single contact selected
+    :align: center
+
+- `...acq-3D_space-T00mri_T1w_electrode_spheres.nii.gz`: Spheres marking electrodes in MRI (T00) space. 
+- `...acq-3D_space-T01ct_T1w.nii.gz`: Original MRI transformed to CT (T01) space. 
+
+The next three outputs are the original CT scan, thresholded CT scan, and electrode spheres in native T01 CT space, transformed to the RAS (Right, Anterior, Superior) coordinate system. The units of RAS are voxels, and the voxels are indexed from left to right, posterior to anterior, and inferior to superior, respectively: 
+
+- `sub-xxxx_ses-xxxx_acq-3D_space-T01ct_ct_ras_electrode_spheres.nii.gz``
+- `sub-xxxx_ses-xxxx_acq-3D_space-T01ct_ct_ras_thresholded.nii.gz``
+- `sub-xxxx_ses-xxxx_acq-3D_space-T01ct_ct_ras.nii.gz`
+
+Coordinate files
+^^^^^^^^^^^^^^
+- `sub-xxxx_ses-xxxx_space-T00mri_desc-mm_electrodes.txt`
+- `sub-xxxx_ses-xxxx_space-T00mri_desc-vox_electrodes.txt`
+- `sub-xxxx_ses-xxxx_electrode_names.txt`
+- `sub-xxxx_ses-xxxx_orig_coords_in_mm.txt`
+  
+Transformation Matrices
+^^^^^^^^^^^^^^
+- `sub-xxxx_ses-xxxx_T00mri_to_T01ct_fsl.mat`
+- `sub-xxxx_ses-xxxx_T01ct_to_T00mri_fsl.mat`
+- `sub-xxxx_ses-xxxx_T00mri_to_T01ct_greedy.mat` (if using Greedy)
+
 
 .. autosummary::
    :toctree: generated
