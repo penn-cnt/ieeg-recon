@@ -49,6 +49,12 @@ html_css_files = ['css/styles.css']
 html_theme_options = {
     'font_family': 'Arial',
     'font_size': 12, 
+    'logo' : 'logo.png',
+    'github_button' : 'true',
+    'github_type' : 'star',
+    'github_user' : 'penn-cnt',
+    'github_repo' : 'https://github.com/penn-cnt/ieeg-recon'
+
 }
 
 # -- Options for EPUB output

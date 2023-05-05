@@ -1,8 +1,9 @@
+.. sphinx-build -a docs/source tmp/
 
-IEEG-Recon
-===========
+Introduction
+===================================
 
-**IEEG-Recon** is a modular pipeline used to reconstruct intracranial electrode coordinates from a post-implant CT scan, into a pre-implant MRI.  The pipeline is available in both MATLAB and python computing environments.
+**IEEG-recon** is a modular pipeline used to reconstruct intracranial electrode coordinates from a post-implant CT scan, into a pre-implant MRI.  The pipeline is available in both MATLAB and python computing environments.
 
 iEEG-Recon is divided into 3 modules:
 
@@ -21,17 +22,3 @@ iEEG-Recon is divided into 3 modules:
 
 
 Check out the :doc:`Getting Started` section for further information, including project :ref:`install`.
-
-
-Table of Contents
-------------------
-
-.. toctree::
-   introduction
-   Getting Started
-   module 1
-   module 2
-   module 3
-   troubleshooting
-   genindex
-

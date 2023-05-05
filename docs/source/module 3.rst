@@ -118,7 +118,7 @@ Example for running Module 3 using Greedy, running AntsPyNet DKT segmentation, g
 
       .. code-block:: console
          
-         $ ieeg_recon -s sub-RID0922 -m 3 -cs ses-clinical101 -rs ses-clinical01 -d ../exampleData
+         $ ieeg_recon -s sub-RID0922 -m 3 -cs ses-clinical01 -rs ses-clinical01 -d ../exampleData
 
          | Arguments:
          | -s: subject ID

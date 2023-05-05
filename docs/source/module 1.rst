@@ -40,7 +40,7 @@ This creates an environment named `vt` in which to run voxTool.
 .. code-block:: console
 
   $ cd voxTool
-  $ conda env install -f conda_env.yml
+  $ conda env create -f conda_env.yml
 
 
 Run

@@ -5,8 +5,8 @@
 .. role:: cyan
 
 
-Usage
-==========
+Getting Started
+================
 
 Requirements
 ------------
@@ -14,9 +14,9 @@ Requirements
 * `FSL <https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation>`_ >= 3.8.0 
    *  Ensure that FSLDIR environment variable is set on your terminal path. 
 * Greedy and C3D: 
-   *  Install `ITK Snap <http://www.itksnap.org/pmwiki/pmwiki.php?n=Main.HomePage>`_ >= V3.2. Open ITK Snap and click on `Help` > `Install Command Line Tools`.
-   *  Or: see `compile from source <http://www.itksnap.org/pmwiki/pmwiki.php?n=Documentation.CommandLine>`_ instructions to install without ITK-Snap. 
-*  `Anaconda <https://www.anaconda.com/products/distribution>`_ 
+   *  Mac and Windows: Install `ITK Snap <http://www.itksnap.org/pmwiki/pmwiki.php?n=Main.HomePage>`_ >= V3.2. Open ITK Snap and click on `Help` > `Install Command Line Tools`.
+   *  Linux: Download the `Greedy binary <https://sourceforge.net/projects/greedy-reg/files/Nightly/>`_ and `C3D binary <https://sourceforge.net/projects/c3d/files/c3d/Nightly/>`_, OR `compile from source <http://www.itksnap.org/pmwiki/pmwiki.php?n=Documentation.CommandLine>`_.
+*  `Anaconda <https://www.anaconda.com/products/distribution>`_  (Note, make sure you download the correct version for your operating system)
 *  `MATLAB <https://matlab.mathworks.com>`_ >=2020a (only if using MATLAB tools)
 
 
@@ -78,7 +78,8 @@ Data Setup
 | CT scans, MRI scans, and coordinate files should be arranged in BIDS format with the following naming conventions. 
 | Example for subject `sub-RID0031` is shown: 
 
-.. code-block:: console
+
+.. code-block::
 
    BIDS/
    ├── sub-RID0031/
