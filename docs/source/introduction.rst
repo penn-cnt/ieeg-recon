@@ -11,14 +11,14 @@ iEEG-Recon is divided into 3 modules:
 * :doc:`module 2` registers the CT scan to the pre-implant MRI and transforms the VoxTool-generated coordinates from CT space to MRI space
 * :doc:`module 3` maps each electrode to a specific ROI defined by a brain atlas registered to the pre-implant MRI
 
-.. note::
-
-   This project is under active development.
-
-
-.. image:: images/OHBM.png
+.. image:: images/usage_overview.png
   :width: 800
   :alt: IEEG-recon pipeline
+
+
+Please Cite Us!
+----------------
+If you use IEEG-recon, please cite our paper: Alfredo Lucas, Brittany H Scheid, Akash Ranjan Pattnaik, Ryan Gallagher, Marissa Mojena, Ashley Tranquille, Brian Prager, Ezequiel Gleichgerrcht, Ruxue Gong, Brian Litt, Kathryn A Davis, Sandhitsu Das, Joel M Stein, & Nishant Sinha. (2023). iEEG-recon: A Fast and Scalable Pipeline for Accurate Reconstruction of Intracranial Electrodes and Implantable Devices. MedRxiv, 2023.06.12.23291286. https://doi.org/10.1101/2023.06.12.23291286
 
 
 Check out the :doc:`Getting Started` section for further information, including project :ref:`install`.

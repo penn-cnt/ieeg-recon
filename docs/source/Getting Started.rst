@@ -144,6 +144,9 @@ To use IEEG-recon, first clone the repository:
         path(path,itksnapmpath)
         clear itksnapdir itksnapmpath;
 
+.. image:: images/OHBM.png
+  :width: 800
+  :alt: IEEG-recon pipeline
 
 .. autosummary::
    :toctree: generated

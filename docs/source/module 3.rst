@@ -42,7 +42,7 @@ Run using AntSpyNet atlas
 
       .. code-block:: console
          
-         $ ieeg_recon -s sub-RID0922 -m 3 -cs ses-clinical101 -rs ses-clinical01 -d ../exampleData -r 2 -apn
+         $ docker run -v absolute/path/to/exampleData:/source_data lucasalf11/ieeg_recon -s sub-RID0922 -m 3 -cs ses-clinical101 -rs ses-clinical01 -d /source_data -r 2 -apn
 
          | Arguments:
          | -s: subject ID
@@ -113,7 +113,7 @@ Example for running Module 3 using Greedy, running AntsPyNet DKT segmentation, g
 
       .. code-block:: console
          
-         $ ieeg_recon -s sub-RID0922 -m 3 -cs ses-clinical01 -rs ses-clinical01 -d absolute/path/to/exampleData -r 2 -apn -mri
+         $ docker run -v absolute/path/to/exampleData:/source_data lucasalf11/ieeg_recon -s sub-RID0922 -m 3 -cs ses-clinical01 -rs ses-clinical01 -r 2 -apn -mri -d /source_data
 
          | Arguments:
          | -s: subject ID
