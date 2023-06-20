@@ -17,8 +17,7 @@ Data Setup
 
 IEEG-recon takes a reference MRI scan and a post-operative CT scan in NIfTI format (.ni.gz) as inputs. The data must be organized for each subject in a `BIDS-like <https://bids.neuroimaging.io>`_ folder structure as follows: 
 
-   |
-   | |sp| BIDS/
+   | BIDS/
    |  |__ :blue:`sub-XXXX`/
    |   |__ :red:`ses-YYYY`/
    |       |sp| |sp|  |__anat/ 
@@ -27,9 +26,8 @@ IEEG-recon takes a reference MRI scan and a post-operative CT scan in NIfTI form
    |       |sp| |sp| | |sp| |sp| |sp|  |__ :blue:`sub-XXXX_`:red:`ses-YYYY`\_acq-3D\_\ :green:`space-T01ct`\_\ :pink:`ct`.nii.gz
    |       |sp| |sp|  |__ ieeg/
    |        |sp| |sp|  |sp| |sp|    |__ :blue:`sub-XXXX_`:red:`ses-YYYY`\_\ :green:`space-T01ct`\_ :cyan:`desc-vox`\_\ :pink:`electrodes`.txt
-   |
 
-|sp| 
+
    *   Subject folders begin with ``sub-`` and are placed at the top level.
    *   Session folders begin with ``ses-`` and are nested within subject folders. Session names can be used to describe the type of scanning session (e.g. ``ses-clinical`` or ``ses-research3T``).
    *  In each session folder,  the ``anat/``, ``ct/``, and ``ieeg/`` folders contain the reference MRI, CT scan, and coordinate files respectively. Note that the coordinate file will be generated in Module 1. 
@@ -42,8 +40,7 @@ IEEG-recon takes a reference MRI scan and a post-operative CT scan in NIfTI form
 
 Below is an example file structure for the example data referenced throughout this tutorial. The example data be `downloaded here <https://www.dropbox.com/sh/ylxc586grm0p7au/AAAs8QQwUo0VQOSweDyj1v_ta?dl=0>`_:
 
-   |
-   | |sp| /path/to/exampleData/
+   | /path/to/exampleData/
    |  |__ :blue:`sub-RID0675`/
    |  | |sp| |sp|  |__ :red:`ses-clinical01`/
    |  | |sp| |sp| | |sp| |sp| |__anat/ 
@@ -61,8 +58,6 @@ Below is an example file structure for the example data referenced throughout th
      |__ :blue:`sub-RID0675_`:red:`ses-research3T`\_acq-3D\_\ :green:`space-T00mri`\_\ :pink:`T1w`.nii.gz
    |  |__ :blue:`sub-RID0864`/
    |  |__ :blue:`sub-RID0922`/
-   |
-
 
 
 Quickstart: run with Docker
@@ -72,8 +67,18 @@ We recommend running IEEG-recon in `our standalone Docker container <https://hub
 
 #. Download `Docker <https://hub.docker.com>`_
 #. In a terminal window, run:  ``docker pull lucasalf11/ieeg_recon``
+#. Follow Module 1 instructions to label coordinates using VoxTool
+#. Organized data as described in :ref:`Data Setup`
+#. Run Module 2 and Module 3 together (-m -1) for a given patient using the Greedy (-gc) and AntsPyNet (-apn) options for Module 2, and setting radius to 2 mm for module 3 (-r 2), and using the default atlas. 
 
- .. note:: 
+.. code-block:: console
+
+   docker run -v </path/to/data>:/source_data lucasalf11/ieeg_recon -s sub-<subjectID> -cs ses-<session_name> -rs ses-<session_name> -gc -m -1 -apn -r 2 -d /source_data
+
+See full documentation for more information on the outputs and options for each module. 
+
+
+.. note:: 
 
       To run with `Singularity <https://sylabs.io>`_ insead of Docker: ``singularity pull docker://lucaslf11/ieeg_recon``. Click here for a lookup table of Docker to Singularity commands.
 

@@ -62,7 +62,7 @@ First, make sure your input patient data is organized according to the pseudo-BI
 
       .. code-block:: console
          
-         $ ieeg_recon -s sub-RID0922 -m 2 -cs ses-clinical101 -rs ses-clinical01 -d absolute/path/to/exampleData
+         $ docker run -v absolute/path/to/exampleData:/source_data lucasalf11/ieeg_recon -s sub-RID0922 -m 2 -cs ses-clinical01 -rs ses-clinical01 -d /source_data
 
          | Arguments:
          | -s: subject ID
