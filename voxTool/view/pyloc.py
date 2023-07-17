@@ -4,7 +4,7 @@ os.environ['ETS_TOOLKIT'] = 'qt4'
 
 from pyface.qt import QtGui, QtCore
 from model.scan import CT
-from slice_viewer import SliceViewWidget
+from .slice_viewer import SliceViewWidget
 from mayavi.core.ui.api import MayaviScene, MlabSceneModel, \
     SceneEditor
 from mayavi import mlab
@@ -132,7 +132,7 @@ class PylocControl(object):
         Callback for "Load Scan" button. See :load_ct:
         :return:
         """
-        file_ = QtGui.QFileDialog().getOpenFileName(None, 'Select Scan', '.', '(*)')
+        file_, filter = QtGui.QFileDialog().getOpenFileName(None, 'Select Scan', '.', "NIFTI files (*.nii.gz)")
         if file_:
             self.load_ct(filename=file_)
             self.view.task_bar.define_leads_button.setEnabled(True)
@@ -182,7 +182,7 @@ class PylocControl(object):
         Callback to save the localized coordinates in either JSON or text format
         :return:
         """
-        file,file_filter = QtGui.QFileDialog().getSaveFileNameAndFilter(None,'Save as:',os.path.join(os.getcwd(),'voxel_coordinates.json'),
+        file,file_filter = QtGui.QFileDialog().getSaveFileName(None,'Save as:',os.path.join(os.getcwd(),'voxel_coordinates.json'),
                                                             'JSON (*.json);;TXT (*.txt)','JSON (*.json)')
         if file:
             self.ct.saveas(file,os.path.splitext(file)[-1],self.view.task_bar.bipolar_box.isChecked())

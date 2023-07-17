@@ -135,7 +135,7 @@ def interpol_grid_helper(coor1, coor1_coord, coor2, coor2_coord, coor3, coor3_co
     x31 = coor3_p - coor1_p
     theta_x = np.arctan(x21[1] * 1.0 / x21[0])
     theta_y = np.arctan(x31[0] * 1.0 / x31[1])
-    print x21, x31, theta_x, theta_y
+    print(x21, x31, theta_x, theta_y)
 
     cross_product = np.cross(coor21, coor31)
     axis = cross_product / np.sqrt(np.sum(np.square(cross_product), axis=0))
@@ -147,7 +147,7 @@ def interpol_grid_helper(coor1, coor1_coord, coor2, coor2_coord, coor3, coor3_co
             res_x = np.dot(rotation_matrix(axis, np.pi + theta_x), coor2)
     else:
         res_x = np.dot(rotation_matrix(axis, theta_x), coor2)
-    print res_x
+    print(res_x)
     if (x21[0]):
         res_x = res_x / np.abs(x21[0])
     else:
@@ -157,12 +157,12 @@ def interpol_grid_helper(coor1, coor1_coord, coor2, coor2_coord, coor3, coor3_co
         res_y = np.dot(rotation_matrix(axis, np.pi - theta_y), coor3)
     else:
         res_y = np.dot(rotation_matrix(axis, theta_y), coor3)
-    print res_y
+    print(res_y)
     if (x31[1]):
         res_y = res_y / x31[1]
     else:
         res_y = res_y / x31[0]
-    print res_x, res_y
+    print(res_x, res_y)
 
 
 def interpol_grid(coor1, coor2, coor3, m, n):
@@ -369,7 +369,7 @@ def interpol_grid_to_mask(coor1, coor2, coor3, m, n, mask):
         delta = np.sum(np.sum(np.square(warped_elec_coor - new_warped_elec_coor)))
         warped_elec_coor = np.copy(new_warped_elec_coor)
 
-        print delta
+        print(delta)
         tmp = np.copy(mask)
         for k in warped_elec_coor:
             tmp[int(k[0]), int(k[1]), int(k[2])] = 2

@@ -17,6 +17,6 @@ class Controller(object):
         return 'Hello!'
 
 controll = Controller()
-print controll.registered_callbacks
+print(controll.registered_callbacks)
 controll.test_function()
-print controll.registered_callbacks
+print(controll.registered_callbacks)

@@ -8,7 +8,7 @@ from mayavi import mlab
 from pyface.qt import QtGui, QtCore
 import matplotlib.pyplot as plt
 
-from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
 import numpy as np
@@ -99,7 +99,7 @@ class SliceView(FigureCanvas):
         self.axes.set_ylabel('')
         self.axes.set_xticklabels([])
         self.axes.set_yticklabels([])
-        self.axes.set_axis_bgcolor((0,0,0))
+        self.axes.set_facecolor((0,0,0))
         self._plot = self.axes.imshow(plotted_image, cmap=plt.get_cmap('bone'))
         plt.axis('off')
         circl_coords = list(self.coordinate)

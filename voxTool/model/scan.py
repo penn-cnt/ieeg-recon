@@ -4,7 +4,7 @@ from traits.api import HasTraits , CArray, Instance,on_trait_change
 from collections import OrderedDict
 import logging
 import json
-import interpolator
+from . import interpolator
 import re
 
 log = logging.getLogger()
@@ -581,14 +581,14 @@ class CT(object):
                     lead_loc=contact.lead_location,
                     coordinate_spaces=dict(
                         ct_voxel=dict(
-                            raw=list(contact.center.astype(int))
+                            raw=contact.center.astype(int).tolist()
                         )
                     )
                 ))
             if include_bipolar:
                 pairs = [{'atlases':{},
                           'info':{},
-                          'coordinate_spaces':{'ct_voxel':{'raw':list((0.5*(c1.center+c2.center)).astype(int))}},
+                          'coordinate_spaces':{'ct_voxel':{'raw':(0.5*(c1.center+c2.center)).astype(int).tolist()}},
                           'names':(lead.label+c1.label,lead.label+c2.label) }
                          for (c1, c2) in self.calculate_pairs(lead)]
             else:

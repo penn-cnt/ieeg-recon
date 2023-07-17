@@ -7,6 +7,9 @@ from view.pyloc import PylocControl
 import yaml
 
 if __name__ == '__main__':
-    config = yaml.load(open(os.path.join(os.path.dirname(__file__), 'config.yml')))
+    config = yaml.safe_load(open(os.path.join(os.path.dirname(__file__), 'config.yml')))
     controller = PylocControl(config)
     controller.exec_()
+
+
+
