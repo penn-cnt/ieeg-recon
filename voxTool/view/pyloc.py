@@ -188,7 +188,7 @@ class PylocControl(object):
             self.ct.saveas(file,os.path.splitext(file)[-1],self.view.task_bar.bipolar_box.isChecked())
 
     def load_coordinates(self):
-        file = QtGui.QFileDialog().getOpenFileName(None, 'Select voxel_coordinates.json', '.', '(*.json)')
+        file, filter = QtGui.QFileDialog().getOpenFileName(None, 'Select voxel_coordinates.json', '.', '(*.json)')
         if file:
             self.ct.from_json(file)
             self.view.update_cloud('_leads')
@@ -308,9 +308,9 @@ class PylocControl(object):
     def set_leads(self, labels, lead_types, dimensions, radii, spacings,micros=None):
         self.ct.set_leads(labels, lead_types, dimensions, radii, spacings,micros)
         leads = self.ct.get_leads()
-        panel_labels = ['%s (%s x %s)' % (k, v.dimensions[0], v.dimensions[1]) for (k, v) in leads.items()]
-        self.view.contact_panel.set_lead_labels(panel_labels)
-        self.view.contact_panel.update_contacts()
+        panel_labels = ['%s (%s x %s)' % (k, v.dimensions[0], v.dimensions[1]) for (k, v) in list(leads.items())]
+        self.view.contact_panel.set_lead_labels(panel_labels) # Add lead labels to main drop down
+        self.view.contact_panel.update_contacts() # Triggers callback function
 
     def delete_contact(self, lead_label, contact_label):
         try:
@@ -560,9 +560,10 @@ class ContactPanelWidget(QtGui.QWidget):
 
     def lead_changed(self):
         lead_txt = self.label_dropdown.currentText()
-        self.controller.set_selected_lead(lead_txt.split()[0])
-        self.lead_group.setText("0")
-        self.lead_location_changed()
+        if len(lead_txt) > 1:
+            self.controller.set_selected_lead(lead_txt.split()[0])
+            self.lead_group.setText("0")
+            self.lead_location_changed()
 
     def contact_changed(self):
         self.controller.set_contact_label(self.contact_name.text())
@@ -574,8 +575,8 @@ class ContactPanelWidget(QtGui.QWidget):
         self.contact_list.clear()
         self.contacts = []
         for lead_name in sorted(leads.keys()):
-            lead = leads[lead_name]
-            for contact_name in sorted(lead.contacts.keys(), key=lambda x: int(''.join(re.findall('\d+', x)))):
+            lead = leads[lead_name] # lead.contacts.keys() is empty
+            for contact_name in sorted(list(lead.contacts.keys()), key=lambda x: int(''.join(re.findall('\d+', x)))):
                 contact = lead.contacts[contact_name]
                 self.add_contact(lead, contact)
 
@@ -595,7 +596,7 @@ class ContactPanelWidget(QtGui.QWidget):
             leads = ct.get_leads()
             self.set_chosen_leads(leads)
             self.controller.view.update_cloud('_leads')
-            labels = ['%s (%s x %s)'%(k,v.dimensions[0],v.dimensions[1]) for (k,v) in leads.items()]
+            labels = ['%s (%s x %s)'%(k,v.dimensions[0],v.dimensions[1]) for (k,v) in list(leads.items())]
             self.set_lead_labels(labels)
 
     def set_lead_labels(self, lead_labels):
@@ -618,7 +619,7 @@ class LeadDefinitionWidget(QtGui.QWidget):
         self.y_size_edit = QtGui.QLineEdit()
         self.type_box = QtGui.QComboBox()
 
-        for label, electrode_type in config['lead_types'].items():
+        for label, electrode_type in list(config['lead_types'].items()):
             if 'u' not in label:
                 self.type_box.addItem("{}: {name}".format(label, **electrode_type))
 
@@ -701,7 +702,7 @@ class LeadDefinitionWidget(QtGui.QWidget):
         return window
 
     def finish(self):
-        leads = self._leads.values()
+        leads = list(self._leads.values())
         labels = [lead['label'] for lead in leads]
         types = [lead['type'] for lead in leads]
         dimensions = [(lead['x'], lead['y']) for lead in leads]
@@ -719,12 +720,12 @@ class LeadDefinitionWidget(QtGui.QWidget):
                         "y":lead.dimensions[1],
                         "type":lead.type_,
                         "micro":lead.micros['name']}
-                      for lead in leads.values() }
+                      for lead in list(leads.values()) }
         self.refresh()
 
     def refresh(self):
         self.leads_list.clear()
-        for lead in self._leads.values():
+        for lead in list(self._leads.values()):
             self.leads_list.addItem(
                 QtGui.QListWidgetItem(
                     "{label} ({x} x {y}, {type})".format(**lead)
@@ -910,17 +911,17 @@ class CloudViewer(HasTraits):
     @on_trait_change('scene.activated')
     def plot(self):
         self.figure.on_mouse_pick(self.callback)
-        for view in self.clouds.values():
+        for view in list(self.clouds.values()):
             view.plot()
 
     def update_all(self):
         mlab.figure(self.figure, bgcolor=self.BACKGROUND_COLOR)
-        for view in self.clouds.values():
+        for view in list(self.clouds.values()):
             view.update()
 
     def callback(self, picker):
         found = False
-        for cloud in self.clouds.values():
+        for cloud in list(self.clouds.values()):
             if cloud.contains(picker):
                 if cloud.callback(picker):
                     return True

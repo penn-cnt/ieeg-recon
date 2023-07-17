@@ -228,7 +228,7 @@ class Lead(object):
             self.add_contact(new_mask, *self._next_contact_info())
             return
 
-        last_contact = self.contacts.values()[-1]
+        last_contact = list(self.contacts.values())[-1]
 
         new_mask = PointMask.centered_proximity_mask(self.point_cloud, centered_coordinate, self.radius)
         if not new_mask.mask.any():
@@ -246,7 +246,7 @@ class Lead(object):
                 self.seed_next_contact(next_coordinate)
 
     def has_coordinate(self, coordinate):
-        centers = [contact.center for contact in self.contacts.values()]
+        centers = [contact.center for contact in list(self.contacts.values())]
         for existing_center in centers:
             if all(abs(existing_center - coordinate) < .5):
                 return True
@@ -262,7 +262,7 @@ class Lead(object):
         if len(self.contacts) == 0:
             return '1', (1, 1), 1
 
-        last_contact = self.contacts.values()[-1]
+        last_contact = list(self.contacts.values())[-1]
 
         last_label = last_contact.label
         last_num = int(re.findall(r"\d+", last_label)[-1])
@@ -290,7 +290,7 @@ class Lead(object):
 
 
     def interpolate(self):
-        groups = set(contact.lead_group for contact in self.contacts.values())
+        groups = set(contact.lead_group for contact in list(self.contacts.values()))
         if self.dimensions[1] > 1:
             for group in groups:
                 self._interpolate_grid(group)
@@ -300,7 +300,7 @@ class Lead(object):
 
     def _interpolate_grid(self, group):
         dims = self.dimensions
-        contacts = [contact for contact in self.contacts.values() if contact.lead_group == group]
+        contacts = [contact for contact in list(self.contacts.values()) if contact.lead_group == group]
         locations = [tuple(contact.lead_location) for contact in contacts]
         possible_locations = [(i, j) for i in range(1, dims[0] + 1) for j in range(1, dims[1] + 1)]
 
@@ -324,7 +324,7 @@ class Lead(object):
             downs_xy = [(i + 1, down + 1) for down in downs]
             ups = np.where(diffs[i, :] == 1)[0]
             ups_xy = [(i + 1, up + 2) for up in ups]
-            holes.extend(zip(downs_xy, ups_xy))
+            holes.extend(list(zip(downs_xy, ups_xy)))
 
         for down, up in holes:
             c1 = [contact for contact, location in zip(contacts, locations) if location == down][0]
@@ -342,7 +342,7 @@ class Lead(object):
             downs_xy = [(down + 1, i + 1) for down in downs]
             ups = np.where(diffs[:, i] == 1)[0]
             ups_xy = [(up + 2, i + 1) for up in ups]
-            holes.extend(zip(downs_xy, ups_xy))
+            holes.extend(list(zip(downs_xy, ups_xy)))
 
         for down, up in holes:
             c1 = [contact for contact, location in zip(contacts, locations) if location == down][0]
@@ -351,7 +351,7 @@ class Lead(object):
 
     def _interpolate_strip(self, group):
         dims = self.dimensions
-        contacts = [contact for contact in self.contacts.values() if contact.lead_group == group]
+        contacts = [contact for contact in list(self.contacts.values()) if contact.lead_group == group]
         locations = [tuple(contact.lead_location) for contact in contacts if not 'Micro' in contact.label]
         possible_locations = [(i, 1) for i in range(1, dims[0] + 1)]
 
@@ -439,13 +439,13 @@ class Lead(object):
         contact_n = sorted_contacts[1]
         lead_unit_vector = (contact_n.center - contact_1.center)
         # Micro-contact positions are in relative units from the center of the last contact
-        micro_nums = iter(xrange(1,1+sum(self.micros['numbering'])))
+        micro_nums = iter(range(1,1+sum(self.micros['numbering'])))
         contacts=[]
         for i,(n_contacts,spacing) in enumerate(zip(self.micros['numbering'],self.micros['spacing'])):
             micro_center = spacing*lead_unit_vector+contact_1.center
             for j in range(n_contacts):
                 lead_location = (float('%s.%s'%(i+1,j+1)),1)
-                contact_num = str(micro_nums.next())
+                contact_num = str(next(micro_nums))
                 contacts.append(dict(
                     center=micro_center,
                     point_cloud=self.point_cloud,
@@ -455,7 +455,7 @@ class Lead(object):
         return contacts
 
     def has_lead_location(self, lead_location, lead_group):
-        for contact in self.contacts.values():
+        for contact in list(self.contacts.values()):
             if np.all(contact.lead_location == lead_location):
                 if contact.lead_group == lead_group:
                     return True
@@ -488,12 +488,12 @@ class Lead(object):
         del self.contacts[contact_label]
 
     def coordinates(self):
-        masks = [contact.point_mask for contact in self.contacts.values()]
+        masks = [contact.point_mask for contact in list(self.contacts.values())]
         coords, _ = PointMask.combined(masks)
         return coords
 
     def get_mask(self):
-        masks = [contact.point_mask for contact in self.contacts.values()]
+        masks = [contact.point_mask for contact in list(self.contacts.values())]
         full_mask = np.zeros(len(self.point_cloud.get_coordinates()), bool)
         for mask in masks:
             full_mask = np.logical_or(full_mask, mask.mask)
@@ -546,8 +546,8 @@ class CT(object):
         self.filename = img_file
         log.debug("Loading {}".format(img_file))
         img = nib.load(self.filename)
-        self.data = img.get_data().squeeze()
-        self.brainmask = np.zeros(img.get_data().shape, bool)
+        self.data = img.get_fdata().squeeze()
+        self.brainmask = np.zeros(img.get_fdata().shape, bool)
         self.affine = img.affine[:3,:]
 
     def add_mask(self, filename):
@@ -559,7 +559,7 @@ class CT(object):
         lead.interpolate()
 
     def add_micro_contacts(self):
-        for lead in self._leads.values():
+        for lead in list(self._leads.values()):
             if lead.micros and lead.micros['name'] != ' None':
                 micro_contacts = lead.make_micro_contacts()
                 micro_lead = Lead(lead.point_cloud,lead.label+'Micro',lead_type=lead.micros['type'],dimensions=lead.dimensions,
@@ -570,10 +570,10 @@ class CT(object):
 
     def to_dict(self,include_bipolar=False):
         leads = {}
-        for lead in self._leads.values():
+        for lead in list(self._leads.values()):
             contacts = []
             groups = set()
-            for contact in lead.contacts.values():
+            for contact in list(lead.contacts.values()):
                 groups.add(contact.lead_group)
                 contacts.append(dict(
                     name=lead.label + contact.label,
@@ -613,10 +613,10 @@ class CT(object):
 
     def to_vox_mom(self,fname,include_bipolar=False):
         csv_out = []
-        for lead in sorted(self.get_leads().values(),cmp=lambda x,y:cmp(x.label.upper(),y.label.upper()) ):
+        for lead in sorted(list(self.get_leads().values()),key=lambda x: x.label.upper()):
             ltype = lead.type_
             dims = lead.dimensions
-            for contact in sorted(lead.contacts.keys(),cmp=lambda x,y: cmp(int(x),int(y))):
+            for contact in sorted(list(lead.contacts.keys()),key=int):
                 voxel = np.rint(lead.contacts[contact].center)
                 contact_name = lead.label+contact
                 csv_out += "%s\t%s\t%s\t%s\t%s\t%s %s\n"%(
@@ -636,9 +636,9 @@ class CT(object):
 
     def calculate_pairs(self,lead):
         pairs = []
-        groups = np.unique([contact.lead_group for contact in lead.contacts.values()])
+        groups = np.unique([contact.lead_group for contact in list(lead.contacts.values())])
         for group in groups:
-            group_contacts = [contact for contact in lead.contacts.values() if contact.lead_group == group]
+            group_contacts = [contact for contact in list(lead.contacts.values()) if contact.lead_group == group]
             for contact1 in group_contacts:
                 gl1 = contact1.lead_location
                 contact_pairs = [(contact1, contact2) for contact2 in group_contacts if
@@ -653,7 +653,7 @@ class CT(object):
 
     def from_dict(self, input_dict):
         leads = input_dict['leads']
-        labels = leads.keys()
+        labels = list(leads.keys())
         types = [leads[label]['type'] for label in labels]
         try:
             dimensions = [leads[label]['dimensions'] for label in labels]
@@ -683,7 +683,7 @@ class CT(object):
         self.from_dict(json.load(open(filename)))
 
     def set_leads(self, labels, lead_types, dimensions, radii, spacings,micros=None):
-        for label in self._leads.keys():
+        for label in list(self._leads.keys()):
             if label not in labels:
                 del self._leads[label]
         if micros is None:
@@ -758,7 +758,7 @@ class CT(object):
         return label, c[:, 0], c[:, 1], c[:, 2],
 
     def lead_xyz(self):
-        coords, labels = PointMask.combined([lead.get_mask() for lead in self._leads.values()])
+        coords, labels = PointMask.combined([lead.get_mask() for lead in list(self._leads.values())])
         if len(coords) == 0:
             return [], [], [], []
         return labels, coords[:, 0], coords[:, 1], coords[:, 2]

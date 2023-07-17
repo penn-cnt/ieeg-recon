@@ -1,7 +1,5 @@
-name: vt_new
+name: vt
 channels:
-- free
-- defaults
 - conda-forge
 dependencies:
 - mayavi
@@ -13,41 +11,4 @@ dependencies:
 - scipy
 - traitsui
 - yaml
-
-
-- apptools
-- configobj
-- envisage
-- freetype
-- libpng
-- mayavi
-- mkl
-- numpy
-- openssl
-- pip
-- pyface
-- pygments
-- pyqt
-- python.app
-- pyyaml
-- qt
-- readline
-- setuptools
-- sip
-- sqlit
-- tk
-- traits
-- traitsui
-- vtk
-- whee
-- yaml
-- zlib
-- pip:
-  - cycler
-  - matplotlib
-  - nibabel
-  - pyparsing
-  - python-dateutil
-  - pytz
-  - scipy
 

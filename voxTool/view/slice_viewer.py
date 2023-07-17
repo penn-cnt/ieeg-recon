@@ -18,6 +18,7 @@ class SliceViewWidget(QtGui.QWidget):
     def __init__(self, parent=None, scan=None):
         QtGui.QWidget.__init__(self, parent)
         self.label = QtGui.QLabel('')
+        self.label.setWordWrap(True)
         data = scan.data if scan else None
         self.views = [
             SliceView(self, data, axis=0, subplot=311),
@@ -90,8 +91,9 @@ class SliceView(FigureCanvas):
             return
         plot_plane = [slice(0, self.image.shape[i]) for i in range(3)]
         plot_plane[self.axis] = int(self.coordinate[self.axis])
+        print(plot_plane)
 
-        plotted_image = self.image[plot_plane]
+        plotted_image = self.image[tuple(plot_plane)]
         plotted_image = np.flipud(plotted_image.T)
         extent = [0, plotted_image.shape[0], 0, plotted_image.shape[1], 0, 0]
         self.axes.cla()
