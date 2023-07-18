@@ -3,23 +3,34 @@
 
 ## Setup
 
-- Clone the repository from GitHub
-- Create a Conda environment from the definition file
+To install VoxTool, simply do:
+
+```
+pip install voxtool
+```
+
+We recommend using voxtool within a virtual environment. If you have anaconda installed, you can do:
+
   ```
-  conda env install -f conda_env.yml
+  conda create -n vt
   ```
-  This creates an environment named `vt` in which to run voxTool.
+
+This creates an environment named `vt` in which to run voxTool. You can then install VoxTool within that environment by doing:
+
+```
+conda activate vt
+pip install voxtool
+```
 
 ## Running
 
-- Activate the conda environment:
-  ```
-  source activate vt
-  ```
-- Launch the program:
-  ```
-  python launch_pyloc.py
-  ```
+Inside the environment where VoxTool is installed, type in the terminal:
+
+```
+voxtool
+``` 
+
+This will bring up the main VoxTool window.
 
 ## Usage
 0. Load a CT file, adjusting the threshold as necessary. To adjust the
