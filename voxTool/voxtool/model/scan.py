@@ -620,7 +620,7 @@ class CT(object):
                 voxel = np.rint(lead.contacts[contact].center)
                 contact_name = lead.label+contact
                 csv_out += "%s\t%s\t%s\t%s\t%s\t%s %s\n"%(
-                    contact_name,voxel[0],voxel[1],voxel[2],ltype,dims[0],dims[1]
+                    contact_name,int(voxel[0]),int(voxel[1]),int(voxel[2]),ltype,dims[0],dims[1]
                 )
             if include_bipolar:
                 pairs = self.calculate_pairs(lead)
@@ -628,7 +628,7 @@ class CT(object):
                     voxel = np.rint((pair[0].center+pair[1].center)/2)
                     pair_name = '{lead.label}{pair[0].label}-{lead.label}{pair[1].label}'.format(lead=lead,pair=pair)
                     csv_out += "%s\t%s\t%s\t%s\t%s\t%s %s\n"%(
-                        pair_name,voxel[0],voxel[1],voxel[2],ltype,dims[0],dims[1])
+                        pair_name,int(voxel[0]),int(voxel[1]),int(voxel[2]),ltype,dims[0],dims[1])
         with open(fname,'w') as vox_mom:
             vox_mom.writelines(csv_out)
 
