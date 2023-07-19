@@ -20,33 +20,33 @@ Description
 In this module, each subject's CT and MRI images will be linearly aligned (co-registered). Electrode coordinates will be transformed from their native CT into MRI space.
 
 * Input Files: 
-   - Pre-implant MRI: anat/:blue:`sub-XXXX_`:red:`ses-YYYY`\_acq-3D\_\ :green:`space-T00mri`\_\ :pink:`T1w`.nii.gz
-   - Post-implant CT: ct/:blue:`sub-XXXX_`:red:`ses-YYYY`\_acq-3D\_\ :green:`space-T01ct`\_\ :pink:`ct`.nii.gz
-   - Electrode coordinates in CT space: ieeg/:blue:`sub-XXXX_`:red:`ses-YYYY`\_\ :green:`space-T01ct`\_ :cyan:`desc-vox`\_\ :pink:`electrodes`.txt
+   - Pre-implant MRI: anat/:blue:`sub-xxxx_`:red:`ses-yy`\_acq-3D\_\ :green:`space-T00mri`\_\ :pink:`T1w`.nii.gz
+   - Post-implant CT: ct/:blue:`sub-xxxx_`:red:`ses-yy`\_acq-3D\_\ :green:`space-T01ct`\_\ :pink:`ct`.nii.gz
+   - Electrode coordinates in CT space: ieeg/:blue:`sub-xxxx_`:red:`ses-yy`\_\ :green:`space-T01ct`\_ :cyan:`desc-vox`\_\ :pink:`electrodes`.txt
   
 * Output Files (in `sub-xxx/derivatives/ieeg_recon/module2/`): 
    - Quality Report:
-       - sub-xxxx_ses-xxxx_report.html
-       - sub-xxxx_ses-xxxx_itksnap_workspace.itksnap
-       - sub-xxxx_ses-xxxx_space-T00mri_desc-mm_electrodes_plot.html
-       - sub-xxxx_ses-xxxx_T00mri_T01ct_registration.svg
-       - sub-xxxx_ses-xxxx_space-T01ct_desc-vox_electrodes_itk_snap_labels.txt
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_report.html
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_itksnap_workspace.itksnap
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_\ :green:`space-T00mri`\_desc-mm_electrodes_plot.html
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_T00mri_T01ct_registration.svg
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_\ :green:`space-T01ct`\_desc-vox_electrodes_itk_snap_labels.txt
    - Image Files:
-       - sub-xxxx_ses-xxxx_acq-3D_space-T00mri_ct_thresholded.nii.gz
-       - sub-xxxx_ses-xxxx_acq-3D_space-T00mri_T1w_electrode_spheres.nii.gz
-       - sub-xxxx_ses-xxxx_acq-3D_space-T01ct_T1w.nii.gz
-       - sub-xxxx_ses-xxxx_acq-3D_space-T01ct_ct_ras_electrode_spheres.nii.gz
-       - sub-xxxx_ses-xxxx_acq-3D_space-T01ct_ct_ras_thresholded.nii.gz
-       - sub-xxxx_ses-xxxx_acq-3D_space-T01ct_ct_ras.nii.gz
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_acq-3D\_\ :green:`space-T00mri`\_ct_thresholded.nii.gz
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_acq-3D\_\ :green:`space-T00mri`\_T1w_electrode_spheres.nii.gz
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_acq-3D\_\ :green:`space-T01ct`\_T1w.nii.gz
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_acq-3D\_\ :green:`space-T01ct`\_ct_ras_electrode_spheres.nii.gz
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_acq-3D\_\ :green:`space-T01ct`\_ct_ras_thresholded.nii.gz
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_acq-3D\_\ :green:`space-T01ct`\_ct_ras.nii.gz
    - Coordinate files:
-       - sub-xxxx_ses-xxxx_space-T00mri_desc-mm_electrodes.txt
-       - sub-xxxx_ses-xxxx_space-T00mri_desc-vox_electrodes.txt
-       - sub-xxxx_ses-xxxx_electrode_names.txt
-       - sub-xxxx_ses-xxxx_orig_coords_in_mm.txt
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_\ :green:`space-T00mri`\_desc-mm_electrodes.txt
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_\ :green:`space-T00mri`\_desc-vox_electrodes.txt
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_electrode_names.txt
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_orig_coords_in_mm.txt
    - Transformation Matrices:
-       - sub-xxxx_ses-xxxx_T00mri_to_T01ct_fsl.mat
-       - sub-xxxx_ses-xxxx_T01ct_to_T00mri_fsl.mat
-       - sub-xxxx_ses-xxxx_T00mri_to_T01ct_greedy.mat (if using Greedy)
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_T00mri_to_T01ct_fsl.mat
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_T01ct_to_T00mri_fsl.mat
+       - :blue:`sub-xxxx_`:red:`ses-yy`\_T00mri_to_T01ct_greedy.mat (if using Greedy)
 
    
 
@@ -143,22 +143,22 @@ Module 2 generates a number of transformed image files
 
 The next three outputs are the original CT scan, thresholded CT scan, and electrode spheres in native T01 CT space, transformed to the RAS (Right, Anterior, Superior) coordinate system. The units of RAS are voxels, and the voxels are indexed from left to right, posterior to anterior, and inferior to superior, respectively: 
 
-- `sub-xxxx_ses-xxxx_acq-3D_space-T01ct_ct_ras_electrode_spheres.nii.gz``
-- `sub-xxxx_ses-xxxx_acq-3D_space-T01ct_ct_ras_thresholded.nii.gz``
-- `sub-xxxx_ses-xxxx_acq-3D_space-T01ct_ct_ras.nii.gz`
+- :blue:`sub-xxxx_`:red:`ses_yy`\_acq-3D_\ :green:`space-T01ct`\_ct_ras_electrode_spheres.nii.gz
+- :blue:`sub-xxxx_`:red:`ses_yy`\_acq-3D_\ :green:`space-T01ct`\_ct_ras_thresholded.nii.gz
+- :blue:`sub-xxxx_`:red:`ses_yy`\_acq-3D_\ :green:`space-T01ct`\_ct_ras.nii.gz
 
 Coordinate files
 ^^^^^^^^^^^^^^
-- `sub-xxxx_ses-xxxx_space-T00mri_desc-mm_electrodes.txt`
-- `sub-xxxx_ses-xxxx_space-T00mri_desc-vox_electrodes.txt`
-- `sub-xxxx_ses-xxxx_electrode_names.txt`
-- `sub-xxxx_ses-xxxx_orig_coords_in_mm.txt`
+- :blue:`sub-xxxx_`:red:`ses_yy`\_\ :green:`space-T00mri`\_desc-mm_electrodes.txt
+- :blue:`sub-xxxx_`:red:`ses_yy`\_\ :green:`space-T00mri`\_desc-vox_electrodes.txt
+- :blue:`sub-xxxx_`:red:`ses_yy`\_electrode_names.txt
+- :blue:`sub-xxxx_`:red:`ses_yy`\_orig_coords_in_mm.txt
   
 Transformation Matrices
 ^^^^^^^^^^^^^^
-- `sub-xxxx_ses-xxxx_T00mri_to_T01ct_fsl.mat`
-- `sub-xxxx_ses-xxxx_T01ct_to_T00mri_fsl.mat`
-- `sub-xxxx_ses-xxxx_T00mri_to_T01ct_greedy.mat` (if using Greedy)
+- :blue:`sub-xxxx_`:red:`ses_yy`\_T00mri_to_T01ct_fsl.mat
+- :blue:`sub-xxxx_`:red:`ses_yy`\_T01ct_to_T00mri_fsl.mat
+- :blue:`sub-xxxx_`:red:`ses_yy`\_T00mri_to_T01ct_greedy.mat (if using Greedy)
 
 
 .. autosummary::

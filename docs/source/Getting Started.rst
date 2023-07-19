@@ -6,7 +6,6 @@
 
 .. |sp| unicode:: U+00A0 .. non-breaking space
 
-
 Getting Started
 ================
 
@@ -67,13 +66,20 @@ We recommend running IEEG-recon in `our standalone Docker container <https://hub
 
 #. Download `Docker <https://hub.docker.com>`_
 #. In a terminal window, run:  ``docker pull lucasalf11/ieeg_recon``
-#. Follow Module 1 instructions to label coordinates using VoxTool
-#. Organized data as described in :ref:`Data Setup`
+#. Follow :ref:`Module 1` instructions to label coordinates using VoxTool
+#. Organize data as described in :ref:`Data Setup`
 #. Run Module 2 and Module 3 together (-m -1) for a given patient using the Greedy (-gc) and AntsPyNet (-apn) options for Module 2, and setting radius to 2 mm for module 3 (-r 2), and using the default atlas. 
 
 .. code-block:: console
 
-   docker run -v </path/to/data>:/source_data lucasalf11/ieeg_recon -s sub-<subjectID> -cs ses-<session_name> -rs ses-<session_name> -gc -m -1 -apn -r 2 -d /source_data
+   $ docker run -v </path/to/data>:/source_data lucasalf11/ieeg_recon -s sub-<subjectID> -cs ses-<session_name> -rs ses-<session_name> -gc -m -1 -apn -r 2 -d /source_data
+
+Example: 
+
+.. code-block:: console
+      $ docker run -v /Users/username/:/source_data lucasalf11/ieeg_recon -s sub-<subjectID> -cs ses-<session_name> -rs ses-<session_name> -gc -m -1 -apn -r 2 -d /source_data
+
+
 
 See full documentation for more information on the outputs and options for each module. 
 

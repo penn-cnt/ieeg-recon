@@ -31,7 +31,7 @@ Module 3 assigns electrodes in the pre-implant MRI space to a specific brain reg
 Running Module 3 
 -----------------
 
-Make sure your input patient data is organized according to the pseudo-BIDS structure outlined in :ref:`Data Setup`. You can also run the tutorial with our `example data <https://www.dropbox.com/sh/ylxc586grm0p7au/AAAs8QQwUo0VQOSweDyj1v_ta?dl=0>`_. The code below demonstrates how to run Module 3 
+Make sure your input patient data is organized according to the pseudo-BIDS structure outlined in :ref:`Data Setup`. You can also run the tutorial with our `example data <https://www.dropbox.com/sh/ylxc586grm0p7au/AAAs8QQwUo0VQOSweDyj1v_ta?dl=0>`_. You can run Module 3 using the AntSpyNet atlas (default) or by specifying any Freesurfer Atlas. The code below demonstrates how to run Module 3 
 
 Run using AntSpyNet atlas 
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -86,7 +86,7 @@ Run using AntSpyNet atlas
         fileLocations = subject_rid0922.module3;
 
 
-Run specifying any Freesurfer Atlas
+Run specifying any Freesurfer atlas
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
@@ -98,7 +98,10 @@ Run specifying any Freesurfer Atlas
     * ``-ri /path/to/ROI indices`` (e.g. DKTatlas+aseg+VEP_indices.txt)
     * ``-rl /path/to/ROI_labels`` (e.g. DKTatlas+aseg+VEP_labels.txt) 
 
+.. note:: 
+   For the atlas lookup tables, all of the regions that the atlas has need to be included. Having more regions than those found for any given subject is okay, but having less regions is not okay.
 
+   For example, if you want to use the DKT atlas, make sure the atlas lookup table you provide has all of the DKT atlas labels - even if you want to ignore certain labels, this is not where this should be done. Removing brain regions should be done in post-processing.
 
 Optional Arguments
 ^^^^^^^^^^^^^^^^^^^^^

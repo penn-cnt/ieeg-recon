@@ -2,16 +2,15 @@
 .. role:: red
 .. role:: blue
 .. role:: green
-.. role:: pink
 .. role:: cyan
 
 
-
+.. _Module 1:
 
 Module 1
 ==========
 
-Purpose: Label electrodes in CT scans using **VoxTool 2.0**, a graphical user interface application. 
+Purpose: Label electrodes in CT scans using **VoxTool**, a graphical user interface application. 
 
 
 Description
@@ -32,35 +31,31 @@ Make sure your input patient data is organized according to the pseudo-BIDS stru
 Setup
 ---------
 
-Make sure your input patient data is organized according to the pseudo-BIDS structure outlined in :ref:`Data Setup`. You can also run the tutorial with our `example data <https://www.dropbox.com/sh/ylxc586grm0p7au/AAAs8QQwUo0VQOSweDyj1v_ta?dl=0>`_.
-
-Create a conda environment from the environment file in the VoxTool folder. 
-This creates an environment named `vt` in which to run voxTool.
+In a terminal window, type the following to install voxtool
 
 .. code-block:: console
 
-  $ cd voxTool
-  $ conda env create -f conda_env.yml
-
+  $ pip install voxtool
 
 Run
 ------------
 
-Activate the conda environment and launch the program: 
+In terminal, type: 
 
 .. code-block:: console
 
-   $ source activate vt
-   $ python launch_pyloc.py
-
+   $ voxtool
 
 Label Electrodes
 -----------------
+
+Click on the image below for a voxTool video tutorial
 
 .. image:: images/mod1_single_contact.png
   :width: 800
   :alt: Single contact selected
   :align: center
+  :target: https://drive.google.com/file/d/1EjMQPS1wjDF-8Pgj3wOPNKxgPEeU53zO/view?usp=share_link
 
 .. centered::
    VoxTool GUI
@@ -110,7 +105,8 @@ Label Electrodes
    will also be saved for the midpoint of each pair of neighboring contacts.
 
    Save the electrode labels as a text file in the following location:
-   ``BIDS/sub-<subjectID>/ses-<sessionName>/ieeg/sub-<subjectID>_ses-<sessionName>_space-T01ct_desc-vox_electrodes.txt``
+   ``BIDS/sub-<subjectID>/ses-<sessionName>/ieeg/
+   sub-<subjectID>_ses-<sessionName>_space-T01ct_desc-vox_electrodes.txt``
 
  
 
