@@ -30,6 +30,17 @@ This will create a conda virtual environment called `ieeg_recon` that contains a
 ```
 conda activate ieeg_recon
 ```
+#### M1/M2 Apple Devices
+If you have an Apple Silicon chip on your machine (M1/M2), after cloning the repository and with Anaconda installed, run the script `install_ieeg-recon_m1m2.sh` while inside the repository directory by doing:
+
+```
+bash install_ieeg-recon_m1m2.sh
+```
+This will automatically create a virtual environment called `ieeg_recon_m1`. After running the above script, activate the environment by typing:
+
+```
+conda activate ieeg_recon_m1
+```
 
 ### Installing FSL
 
