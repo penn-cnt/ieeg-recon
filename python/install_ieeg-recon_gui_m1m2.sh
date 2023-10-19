@@ -34,6 +34,7 @@ echo "Python Environment installed..."
 echo "Activate the environment with: conda activate ieeg_recon_m1"
 echo "After activation, run iEEG-recon"
 
-# Installing gui
-chmod +x install_gui_v2.sh
-bash install_gui_v2.sh
+# Install the GUI
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+chmod +x "$SCRIPT_DIR/install_gui_v2.sh"
+bash "$SCRIPT_DIR/install_gui_v2.sh"

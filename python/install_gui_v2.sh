@@ -12,7 +12,7 @@ cat > "$INSTALL_DIR/start_ieeg_recon.sh" <<END
 source "$CONDA_PATH/etc/profile.d/conda.sh"
 conda activate ieeg_recon_m1
 cd "$INSTALL_DIR"
-python /Volumes/carbonara/CNT_drive_backup/research/CNT/P33_ieeg_recon/code/python_gui/ieeg_recon/ieeg_recon_gui.py
+python "$INSTALL_DIR"/ieeg_recon_gui.py
 END
 
 # Give execute permissions to the start_ieeg_recon.sh script
@@ -25,6 +25,9 @@ END
 
 # Save the AppleScript as an application
 osascript -e "tell application \"Script Editor\" to save (open POSIX file \"$INSTALL_DIR/start_ieeg_recon.applescript\") as \"application\" in POSIX file \"/Applications/iEEG-recon.app\""
+
+# Give the system some time to catch up
+sleep 5
 
 # Set the application icon
 cp "$INSTALL_DIR/figures/applet.icns" "/Applications/iEEG-recon.app/Contents/Resources/"
