@@ -4,7 +4,10 @@
 conda create -n ieeg_recon_m1 python=3.9 -y
 
 # Activate the conda environment
-source activate ieeg_recon_m1
+# source activate ieeg_recon_m1
+CONDA_PATH=$(dirname $(dirname $(which conda)))
+source "$CONDA_PATH/etc/profile.d/conda.sh"
+conda activate ieeg_recon_m1
 
 # Upgrade pip
 pip install -U pip
