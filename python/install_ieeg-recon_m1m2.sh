@@ -26,6 +26,9 @@ pip install tensorflow_probability==0.20.0
 pip install nipype
 pip install niworkflows
 pip install ipython
+pip install mayavi
+pip install pyqt5
+pip install voxtool
 
 echo "Python Environment installed..."
 echo "Activate the environment with: conda activate ieeg_recon_m1"
