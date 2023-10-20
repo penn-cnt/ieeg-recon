@@ -1,31 +1,11 @@
-from email import header
-from nipype.interfaces import (
-    utility as niu,
-    freesurfer as fs,
-    fsl,
-    image,
-)
-
-import pathlib
-
-from nipype import Node, Workflow, SelectFiles, MapNode
-from nipype.interfaces.utility import Function
-
-import nipype.interfaces.io as nio
 import os
-from nipype.interfaces.ants.base import Info as ANTsInfo
-from nipype.interfaces.ants import N4BiasFieldCorrection
-from nipype.interfaces.image import Reorient
+
 
 import numpy as np
 import nibabel as nib
 import ants
-import antspynet
 from mayavi import mlab
 
-## Add the Command Line Interface
-from nipype.interfaces.base import CommandLineInputSpec, File, TraitedSpec,  CommandLine
-from nipype.interfaces.c3 import C3dAffineTool
 
 ## Argument Parser
 import argparse
@@ -261,7 +241,9 @@ def generate_sphere(A, x0,y0,z0, radius, value):
                 if (deb)>=0: AA[x,y,z] = value
     return AA
 
+val = 0
 for coord in optimized_e:
-    new_spheres = generate_sphere(new_spheres, int(coord[0]), int(coord[1]), int(coord[2]), 2, 1)
+    val += 1
+    new_spheres = generate_sphere(new_spheres, int(coord[0]), int(coord[1]), int(coord[2]), 2, val)
 
 nib.save(nib.Nifti1Image(new_spheres, volume_recon.affine),os.path.join(mod2_folder, subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w_electrode_spheres.nii.gz'))

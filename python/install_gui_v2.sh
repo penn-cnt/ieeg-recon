@@ -20,7 +20,9 @@ chmod +x "$INSTALL_DIR/start_ieeg_recon.sh"
 
 # Create an AppleScript wrapper for the bash script
 cat > "$INSTALL_DIR/start_ieeg_recon.applescript" <<END
-do shell script "$INSTALL_DIR/start_ieeg_recon.sh"
+tell application "Terminal"
+    do script "source \"$CONDA_PATH/etc/profile.d/conda.sh\"; conda activate ieeg_recon_m1; cd \"$INSTALL_DIR\"; python \"$INSTALL_DIR/ieeg_recon_gui.py\""
+end tell
 END
 
 # Save the AppleScript as an application

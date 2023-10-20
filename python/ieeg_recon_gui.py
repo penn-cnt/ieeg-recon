@@ -173,8 +173,9 @@ bs_chk.grid(row=5, column=0, columnspan=2, sticky=tk.W, padx=5, pady=5)
 
 ttk.Label(module2_frame, text="FreeSurfer Directory:").grid(row=6, column=0, sticky=tk.W, padx=5, pady=5)
 fs_var = tk.StringVar()
-fs_entry = ttk.Entry(module2_frame, textvariable=fs_var).grid(row=6, column=1, padx=5, pady=5)
-ttk.Button(module2_frame, text="Browse", command=lambda: browse_for_file(fs_entry)).grid(row=6, column=2, padx=5, pady=5)
+fs_entry = ttk.Entry(module2_frame, textvariable=fs_var)
+fs_entry.grid(row=6, column=1, padx=5, pady=5)
+ttk.Button(module2_frame, text="Browse", command=lambda: browse_directory(fs_var)).grid(row=6, column=2, padx=5, pady=5)
 
 # Module 3 arguments section
 
