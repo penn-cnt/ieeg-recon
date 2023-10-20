@@ -44,7 +44,30 @@ conda activate ieeg_recon_m1
 
 ### Installing FSL
 
-When using the standalone Python version, FSL must also be installed (https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation). Make sure the `$FSLDIR` variable is properly defined and FSL is sourced before running the `ieeg_recon` script
+When using the standalone Python version, FSL must also be installed (https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation). Make sure the `$FSLDIR` variable is properly defined and FSL is sourced before running the `ieeg_recon` script.
+
+For MACs, the following set of commands should work for installing FSL:
+
+```
+curl -o fslinstaller.py https://fsl.fmrib.ox.ac.uk/fsldownloads/fslconda/releases/fslinstaller.py
+echo -e "\n\n\n\n" | python fslinstaller.py
+export FSLDIR=/usr/local/fsl
+export PATH=${FSLDIR}/bin:${PATH}
+echo "export FSLDIR=/usr/local/fsl" >> ~/.zshrc
+echo "export PATH=\$FSLDIR/bin:\$PATH" >> ~/.zshrc
+```
+If your device uses `bash` instead of `zsh`, replace the `.zshrc` in the two commands with `.bashrc`
+
+### Installing ANTs
+
+```
+curl -o installANTs.sh https://raw.githubusercontent.com/cookpa/antsInstallExample/master/installANTs.sh
+bash installANTs.sh
+export PATH=/app/install/bin:$PATH
+echo "export PATH=/app/install/bin:\$PATH" >> ~/.zshrc
+```
+
+If your device uses `bash` instead of `zsh`, replace the `.zshrc` in the last command with `.bashrc`
 
 ### Installing Greedy and C3D
 
@@ -54,11 +77,21 @@ The `-g` flag, when running module 2 applies an extra, optional, rigid registrat
 
 Both Greedy and C3D need to be installed for this to work. They can both easily be installed through ITK-Snap (http://www.itksnap.org/pmwiki/pmwiki.php?n=Main.HomePage) by going to Help > Install Command Line Tools. If you would like to install these packages without ITK-Snap, the binaries can be found here: http://www.itksnap.org/pmwiki/pmwiki.php?n=Documentation.CommandLine.
 
-This option is also available in the Docker container.
+If you already have ITK-SNAP installed on your MAC, you can simply use the following command in the terminal to get these tools:
+
+```
+sudo /Applications/ITK-SNAP.app/Contents/bin/install_cmdl.sh 
+```
+
+### Installing the GUI
+
+We also provide a GUI for convenience. All of the commands present in the GUI can be done in the command line and viceversa. For instructions on installing the GUI, see here: https://github.com/penn-cnt/ieeg-recon/blob/main/python/docs/Installing_the_GUI.md
 
 # Usage
 
 For an overview of the pipeline as well as its usage see here: https://github.com/allucas/ieeg_recon/blob/main/figures/ieeg_recon.pdf
+
+For examples on how to run the electrode reconstruction through the GUI, see here: https://github.com/penn-cnt/ieeg-recon/blob/main/python/docs/Running_iEEG-recon.md
 
 ## Example
 
