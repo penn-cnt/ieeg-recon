@@ -8,53 +8,73 @@ from PIL import Image, ImageTk
 
 def run_pipeline():
     # Construct the command based on GUI selections
-    cmd = ["python", "ieeg_recon.py"]
+    # this is basically a wrapper for the Docker command
+    cmd_first_part = ["docker","run"]
+    
+    cmd_second_part = ["lucasalf11/ieeg_recon:1.0"]
 
     if subject_var.get():
-        cmd.extend(["-s", subject_var.get()])
+        cmd_second_part.extend(["-s", subject_var.get()])
     if reference_session_var.get():
-        cmd.extend(["-rs", reference_session_var.get()])
+        cmd_second_part.extend(["-rs", reference_session_var.get()])
     if module_var.get():
-        cmd.extend(["-m", module_options[module_var.get()]])
+        cmd_second_part.extend(["-m", module_options[module_var.get()]])
         
     # Module 2 arguments
     if source_directory_var.get():
-        cmd.extend(["-d", source_directory_var.get()])
+        cmd_first_part.extend(["-v", source_directory_var.get()+':/source_data'])
+        cmd_second_part.extend(["-d", "/source_data"])
     if clinical_session_var.get():
-        cmd.extend(["-cs", clinical_session_var.get()])
+        cmd_second_part.extend(["-cs", clinical_session_var.get()])
     if greedy_var.get():
-        cmd.append(greedy_var.get())
+        cmd_second_part.append(greedy_var.get())
     if bs_var.get() and fs_var.get():
-        cmd.append("-bs")
-        cmd.extend(["-fs", fs_var.get()])
+        cmd_second_part.append("-bs")
+        cmd_first_part.extend(["-v", fs_var.get()+':/freesurfer'])
+        cmd_second_part.extend(["-fs", '/freesurfer'])
 
     
     
     # Module 3 arguments
     if atlas_path_var.get():
-        cmd.extend(["-a", atlas_path_var.get()])
+        cmd_first_part.extend(["-v", atlas_path_var.get()+':/atlas_files/atlas.nii.gz'])
+        cmd_second_part.extend(["-a", '/atlas_files/atlas.nii.gz'])
     if atlas_name_var.get():
-        cmd.extend(["-an", atlas_name_var.get()])
+        cmd_second_part.extend(["-an", atlas_name_var.get()])
     if roi_indices_var.get():
-        cmd.extend(["-ri", roi_indices_var.get()])
+        cmd_first_part.extend(["-v", roi_indices_var.get()+':/atlas_files/indices.txt'])
+        cmd_second_part.extend(["-ri", '/atlas_files/indices.txt'])
     if roi_labels_var.get():
-        cmd.extend(["-rl", roi_labels_var.get()])
+        cmd_first_part.extend(["-v", roi_labels_var.get()+':/atlas_files/labels.txt'])
+        cmd_second_part.extend(["-rl","/atlas_files/labels.txt"])
     if radius_var.get():
-        cmd.extend(["-r", radius_var.get()])
-    if ieeg_recon_dir_var.get():
-        cmd.extend(["-ird", ieeg_recon_dir_var.get()])
+        cmd_second_part.extend(["-r", radius_var.get()])
+    # if ieeg_recon_dir_var.get():
+    #     cmd.extend(["-ird", ieeg_recon_dir_var.get()])
     if atlas_lookup_table_var.get():
-        cmd.extend(["-lut", atlas_lookup_table_var.get()])
+        cmd_first_part.extend(["-v", atlas_lookup_table_var.get()+':/atlas_files/lut.txt'])
+        cmd_second_part.extend(["-lut", '/atlas_files/lut.txt'])
     if ants_pynet_var.get():
-        cmd.append("-apn")
+        cmd_second_part.append("-apn")
 
     # Additional arguments
     if mni_var.get():
-        cmd.append("-mni")
+        cmd_second_part.append("-mni")
 
     # Now run the command
+
+    cmd = cmd_first_part + cmd_second_part
+    cmd = ' '.join(cmd)
+    print(cmd)
     try:
-        subprocess.call(cmd)
+        #subprocess.call(cmd_first_part)
+
+        # pull the docker image
+        cmd_pull = 'docker pull lucasalf11/ieeg_recon:1.0'
+        os.system(cmd_pull)
+
+        # run the docker command
+        os.system(cmd)
     except Exception as e:
         messagebox.showerror("Error", f"Failed to run pipeline: {e}")
     else:
@@ -77,6 +97,13 @@ def browse_for_file(var):
     filepath = filedialog.askopenfilename()
     if filepath:
         var.set(filepath)
+
+def browse_source_directory(var, subject_combobox):
+    directory = filedialog.askdirectory()
+    if directory:
+        var.set(directory)
+        subjects = [d for d in os.listdir(directory) if os.path.isdir(os.path.join(directory, d)) and d.startswith("sub-")]
+        subject_combobox['values'] = subjects
 
 def browse_source_directory(var, subject_combobox, reference_session_combobox, clinical_session_combobox):
     directory = filedialog.askdirectory()
@@ -286,3 +313,4 @@ run_button.grid(row=10, column=2, padx=10, pady=20)
 
 
 app.mainloop()
+
