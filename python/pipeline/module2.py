@@ -374,6 +374,26 @@ def get_only_names(coords_path):
 
     return os.path.abspath('electrode_names_only.txt')
 
+def get_only_type(coords_path):
+    import nibabel as nib
+    import numpy as np
+    import os
+
+    
+    # Return an array with the vox coordinates
+    def get_original_vox_coords(coords_path):
+        coords = np.loadtxt(coords_path, dtype=object)
+        coords = coords[:,4]
+        return coords
+    
+
+
+    coords = get_original_vox_coords(coords_path)
+
+    np.savetxt('electrode_types_only.txt', coords, fmt='%s')
+
+    return os.path.abspath('electrode_types_only.txt')
+
 # Zero out the scaling row in the transform matrix
 def zero_scaling(xfm_file):
     import numpy as np

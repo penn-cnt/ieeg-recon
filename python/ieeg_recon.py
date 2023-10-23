@@ -20,6 +20,7 @@ def parse_args():
     parser.add_argument("-gc", "--greedy_centering", action="store_true")
     parser.add_argument("-bs", "--brain_shift", action="store_true")
     parser.add_argument("-fs", "--freesurfer_dir")
+    parser.add_argument("-dfo", "--deface_outputs", action="store_true")
 
     # Module 3 arguments
     parser.add_argument("-a", "--atlas_path")
@@ -107,9 +108,13 @@ def run_module2(args):
     
     subprocess.call(cmd)
     
+    if args.deface_outputs:
+        print("Defacing outputs...")
+        subprocess.call(["python","pipeline/deface_outputs.py","-s", args.subject, "-d", args.source_directory])
+
     if args.brain_shift:
         print("Applying brain shift correction to module 2 outputs...")
-        subprocess.call(["python", "pipeline/brain_shift.py", "-s", args.subject, "-rs", args.reference_session, "-d", args.source_directory, "-fs", args.freesurfer_dir])
+        subprocess.call(["python", "pipeline/brain_shift.py", "-s", args.subject, "-rs", args.reference_session, "-d", args.source_directory, "-fs", args.freesurfer_dir, "-cs", args.clinical_session])
 
 def run_module3(args, atlas_lookup_params):
     if atlas_lookup_params!=None:

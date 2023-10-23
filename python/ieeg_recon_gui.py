@@ -27,7 +27,8 @@ def run_pipeline():
     if bs_var.get() and fs_var.get():
         cmd.append("-bs")
         cmd.extend(["-fs", fs_var.get()])
-
+    if deface_var.get():
+        cmd.append("-dfo")
     
     
     # Module 3 arguments
@@ -169,6 +170,13 @@ ttk.Radiobutton(module2_frame, text="Greedy centering alone", variable=greedy_va
 
 # Set "None" as the default selection
 greedy_var.set("-gc")
+
+# Add the option to deface outputs
+
+deface_var = tk.BooleanVar()
+deface_chk = ttk.Checkbutton(module2_frame, text="Deface Outputs", variable=deface_var)
+deface_chk.grid(row=5, column=2, columnspan=2, sticky=tk.W, padx=5, pady=5)
+
 
 # Add the option for brain shift
 

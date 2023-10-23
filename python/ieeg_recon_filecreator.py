@@ -30,6 +30,19 @@ class Application(tk.Tk):
         if file:
             variable.set(file)
 
+    def deface_inputs(self):
+        args = {
+            "subject": self.subjectID_var.get(),
+            "reference_session": self.reference_session_var.get(),
+            "clinical_session": self.clinical_session_var.get(),
+            "output_directory": self.output_directory_var.get(),
+            "reference_T1w": self.reference_T1w_var.get(),
+            "clinical_CT": self.clinical_CT_var.get(),
+            "clinical_iEEG": self.clinical_iEEG_var.get(),
+        }
+
+        cmd = ["python","pipeline/deface_inputs","-s",args.subject,"-d",args.source_directory]
+
     def create_folder_structure(self):
         args = {
             "subject": self.subjectID_var.get(),
@@ -91,7 +104,12 @@ class Application(tk.Tk):
         ttk.Entry(self, textvariable=self.clinical_iEEG_var).grid(column=1, row=6, sticky="ew")
         ttk.Button(self, text="Browse", command=lambda: self.browse_file(self.clinical_iEEG_var)).grid(column=2, row=6, sticky="ew")
 
-        ttk.Button(self, text="Create Folder Structure", command=self.create_folder_structure).grid(column=0, row=7, columnspan=3, sticky="ew")
+        self.deface_var = tk.BooleanVar()
+        deface_chk = ttk.Checkbutton(self, text="Deface Inputs", variable=self.deface_var)
+        deface_chk.grid(column=1, row=7, sticky="ew")
+
+
+        ttk.Button(self, text="Create Folder Structure", command=self.create_folder_structure).grid(column=0, row=8, columnspan=3, sticky="ew")
 
 
 if __name__ == "__main__":

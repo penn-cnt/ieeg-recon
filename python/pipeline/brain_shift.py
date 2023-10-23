@@ -17,19 +17,14 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-s", "--subject", help="Subject ID")
 parser.add_argument("-d", "--source_directory", help="Source Directory")
 parser.add_argument("-rs","--reference_session")
+parser.add_argument("-cs","--clinical_session")
 parser.add_argument("-fs","--freesurfer_dir")
 args = parser.parse_args()
 
 
 print(args.subject)
 
-
-#subjects = ['sub-RID0031','sub-RID0051','sub-RID0089','sub-RID0102','sub-RID0117','sub-RID0139','sub-RID0143','sub-RID0194','sub-RID0278','sub-RID0309','sub-RID0320','sub-RID0365','sub-RID0420','sub-RID0440','sub-RID0454','sub-RID0476','sub-RID0490','sub-RID0508','sub-RID0520','sub-RID0522','sub-RID0536','sub-RID0566','sub-RID0572','sub-RID0595','sub-RID0646','sub-RID0648','sub-RID0679']
-
 subject = args.subject
-
-
-#subjects = ['sub-RID0139']
 
 source_dir = args.source_directory
 reference_session = args.reference_session
@@ -77,9 +72,15 @@ def apply_affine(affine, coords):
 
 transformed_vertices = apply_affine(T, vertices)
 
-# load the electrode coordinates
+# load the electrode coordinates in MRI space
 electrode_coordinates = np.loadtxt(os.path.join(mod2_folder, subject+'_'+reference_session+'_space-T00mri_desc-vox_electrodes.txt'))
 
+# load the voxtool output to identify the electrode type
+voxtool_out = np.loadtxt(os.path.join(source_dir,subject,args.clinical_session,'ieeg', args.subject+'_'+args.clinical_session+'_space-T01ct_desc-vox_electrodes.txt'), dtype=object)
+electrode_type = voxtool_out[:,4]
+
+grid_idx = np.where(electrode_type!='D')[0]
+depth_idx = np.where(electrode_type=='D')[0]
 
 ##### Apply electrode snapping to the pial surface using constraints and optimization ######
 
@@ -118,7 +119,7 @@ def compute_alpha(e0):
     
     return alpha
 
-e0 = electrode_coordinates
+e0 = electrode_coordinates[grid_idx]
 N = len(e0)
 Nv = len(transformed_vertices)
 e_s_distance_array = np.array([[np.linalg.norm(e0[i] - transformed_vertices[j]) for j in range(Nv)] for i in range(N)])
@@ -212,7 +213,14 @@ os.rename(os.path.join(mod2_folder, subject+'_'+reference_session+'_acq-3D_space
 #### Save the new module 2 outputs after brainshift
 
 # save the new voxel coordinates
-np.savetxt(os.path.join(mod2_folder, subject+'_'+reference_session+'_space-T00mri_desc-vox_electrodes.txt'), optimized_e)
+
+new_coords = np.zeros((len(grid_idx)+len(depth_idx),3))
+
+# reassign the depths
+new_coords[depth_idx] = electrode_coordinates[depth_idx]
+new_coords[grid_idx] = optimized_e
+
+np.savetxt(os.path.join(mod2_folder, subject+'_'+reference_session+'_space-T00mri_desc-vox_electrodes.txt'), new_coords)
 
 # save the new electrode spheres
 v = volume_recon.get_fdata()
@@ -242,7 +250,7 @@ def generate_sphere(A, x0,y0,z0, radius, value):
     return AA
 
 val = 0
-for coord in optimized_e:
+for coord in new_coords:
     val += 1
     new_spheres = generate_sphere(new_spheres, int(coord[0]), int(coord[1]), int(coord[2]), 2, val)
 
