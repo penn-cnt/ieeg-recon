@@ -11,6 +11,12 @@ iEEG-Recon is a pipeline used to reconstruct intracranial electrode coordinates 
 
 # Installation
 
+## Installing the GUI
+
+We provide a GUI for convenience. All of the commands present in the GUI can be executed in the command line and viceversa. For instructions on installing the GUI, see here: https://github.com/penn-cnt/ieeg-recon/blob/main/python/docs/Installing_the_GUI.md
+
+Two versions of the GUI are available: one runs commands through a Docker container, the other runs commands natively in Python.
+
 ## Docker
 
 We recommend using the Docker container available here: https://hub.docker.com/repository/docker/lucasalf11/ieeg_recon
@@ -82,11 +88,6 @@ If you already have ITK-SNAP installed on your MAC, you can simply use the follo
 ```
 sudo /Applications/ITK-SNAP.app/Contents/bin/install_cmdl.sh 
 ```
-
-### Installing the GUI
-
-We also provide a GUI for convenience. All of the commands present in the GUI can be done in the command line and viceversa. For instructions on installing the GUI, see here: https://github.com/penn-cnt/ieeg-recon/blob/main/python/docs/Installing_the_GUI.md
-
 # Usage
 
 For an overview of the pipeline as well as its usage see here: https://github.com/allucas/ieeg_recon/blob/main/figures/ieeg_recon.pdf
