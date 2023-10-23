@@ -1,5 +1,9 @@
 # Installing the iEEG-recon GUI
 
+Before installation, both the Docker and local version require Anaconda in order to run VoxTool (Module 1). Please install Anaconda following the instructions specified here: https://docs.anaconda.com/free/anaconda/install/mac-os/
+
+After Anaconda has been successfully installed, proceed with the options below.
+
 ## Installing the GUI for the Docker version
 
 To install the Docker iEEG-recon GUI, make sure you have Docker installed (https://www.docker.com/products/docker-desktop/) and running. Then, clone the repository:
