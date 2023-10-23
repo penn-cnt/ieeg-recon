@@ -41,7 +41,7 @@ class Application(tk.Tk):
             "clinical_iEEG": self.clinical_iEEG_var.get(),
         }
 
-        cmd = ["python","pipeline/deface_inputs","-s",args.subject,"-d",args.source_directory]
+        cmd = ["python","pipeline/module2_deface_inputs.py","-s",args.subject,"-d",args.source_directory]
 
     def create_folder_structure(self):
         args = {
