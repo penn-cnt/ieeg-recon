@@ -110,7 +110,7 @@ def run_module2(args):
     
     if args.deface_outputs:
         print("Defacing outputs...")
-        subprocess.call(["python","pipeline/deface_outputs.py","-s", args.subject, "-d", args.source_directory])
+        subprocess.call(["python","pipeline/module2_deface_outputs.py","-s", args.subject, "-d", args.source_directory])
 
     if args.brain_shift:
         print("Applying brain shift correction to module 2 outputs...")
