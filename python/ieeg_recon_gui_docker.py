@@ -33,7 +33,7 @@ def run_pipeline():
         cmd_first_part.extend(["-v", fs_var.get()+':/freesurfer'])
         cmd_second_part.extend(["-fs", '/freesurfer'])
     if deface_var.get():
-        cmd.append("-dfo")
+        cmd_second_part.append("-dfo")
     
     
     # Module 3 arguments
