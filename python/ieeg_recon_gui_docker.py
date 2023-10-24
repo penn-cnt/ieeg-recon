@@ -69,6 +69,9 @@ def run_pipeline():
     if mni_var.get():
         cmd_second_part.append("-mni")
 
+    if convert_atlas_var.get():
+        cmd_second_part.append("-ca")
+
     # Now run the command
 
     cmd = cmd_first_part + cmd_second_part
