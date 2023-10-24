@@ -67,6 +67,10 @@ If your device uses `bash` instead of `zsh`, replace the `.zshrc` in the two com
 ### Installing ANTs
 
 ```
+# install homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# install ANTs
 curl -o installANTs.sh https://raw.githubusercontent.com/cookpa/antsInstallExample/master/installANTs.sh
 bash installANTs.sh
 export PATH=/app/install/bin:$PATH
