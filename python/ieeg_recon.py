@@ -31,6 +31,7 @@ def parse_args():
     parser.add_argument("-ird", "--ieeg_recon_dir", help="Source iEEG Recon Directory")
     parser.add_argument("-lut", "--atlas_lookup_table", help="Atlas Lookup Table")
     parser.add_argument("-apn", "--ants_pynet", help="Run AntsPyNet DKT Segmentation", action="store_true")
+    parser.add_argument("-ca", "--convert_atlas", help="Converts provided Atlas from MNI to Subject Space", action="store_true")
 
     # Module 3 MNI
     parser.add_argument("-mni", "--run_mni", help="Run MNI registration", action="store_true")
@@ -116,7 +117,7 @@ def run_module2(args):
         print("Applying brain shift correction to module 2 outputs...")
         subprocess.call(["python", "pipeline/brain_shift.py", "-s", args.subject, "-rs", args.reference_session, "-d", args.source_directory, "-fs", args.freesurfer_dir, "-cs", args.clinical_session])
 
-def run_module3(args, atlas_lookup_params):
+def run_core_module3(args, atlas_lookup_params):
     if atlas_lookup_params!=None:
         if not args.ieeg_recon_dir:
             clinical_module_dir = os.path.join(args.source_directory, args.subject, 'derivatives', 'ieeg_recon')
@@ -147,6 +148,23 @@ def run_mni(args):
     subprocess.call(["python", "pipeline/module3_mni_V2.py", "-s", args.subject, "-rs", args.reference_session, "-cs", args.clinical_session,"-d", args.source_directory])
 
 
+def run_module3(args):
+    # this function runs module 3 with additional submodules
+    # Determine atlas lookup parameters
+    atlas_lookup_params = get_atlas_lookup_params(args)
+
+    
+    # run MNI transform
+    mni_xfm_file = os.path.join(args.source_directory,args.subject,'derivatives','ieeg_recon','module3','MNI',args.subject+'_'+args.reference_session+'_MNI152NLin2009cAsym_to_T00mri.h5')
+    if (args.run_mni) or (args.convert_atlas & (os.path.exists(mni_xfm_file)==False)):
+        run_mni(args)
+    
+    if args.convert_atlas:
+        subprocess.call(["python", "pipeline/module3_atlas_from_mni.py", "-s", args.subject, "-rs", args.reference_session, "-a", args.atlas_path,"-an",args.atlas_name,"-d", args.source_directory])
+        args.atlas_path = os.path.join(args.source_directory,args.subject,'derivatives','ieeg_recon','module3',args.subject+'_'+args.reference_session+'_space-T00mri_atlas-'+args.atlas_name+'.nii.gz')
+
+    run_core_module3(args, atlas_lookup_params)
+
 def main():
 
     args = parse_args()
@@ -156,9 +174,6 @@ def main():
     print('Subject: ', args.subject)
     print('Clinical Session: ', args.clinical_session)
     print('Reference Session: ', args.reference_session)
-
-    # Determine atlas lookup parameters
-    atlas_lookup_params = get_atlas_lookup_params(args)
     
     # Check that the minimum required files are present
     run_pipeline= file_check(args)
@@ -167,10 +182,8 @@ def main():
         if args.module == '-1':
             print('Running Modules 2 and 3 ... \n \n \n \n ')
             run_module2(args)
-            run_module3(args, atlas_lookup_params)
-            if args.run_mni:
-                run_mni(args)
             run_reports(args)
+            run_module3(args)
 
         elif args.module == '2':
             print('Running Module 2 ...')
@@ -179,10 +192,7 @@ def main():
 
         elif args.module == '3':
             print('Running Module 3 ...')
-            run_module3(args, atlas_lookup_params)
-            if args.run_mni:
-                run_mni(args)
-
+            run_module3(args)
 
 if __name__ == "__main__":
     main()
