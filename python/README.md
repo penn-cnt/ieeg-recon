@@ -66,10 +66,23 @@ If your device uses `bash` instead of `zsh`, replace the `.zshrc` in the two com
 
 ### Installing ANTs
 
+To install ANTs, the following commands should work for MacOS:
+
 ```
 # install homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
 
+Installing `cmake`:
+
+```
+# install cmake
+brew install cmake
+```
+
+Installing ANTs:
+
+```
 # install ANTs
 curl -o installANTs.sh https://raw.githubusercontent.com/cookpa/antsInstallExample/master/installANTs.sh
 bash installANTs.sh
