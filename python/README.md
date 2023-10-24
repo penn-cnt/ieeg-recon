@@ -68,7 +68,7 @@ The Native Python version is the most flexible, but requires installing all of t
   export FSLDIR=~/fsl
   export PATH=${FSLDIR}/bin:${PATH}
   echo "export FSLDIR=[FSLDIR]" >> ~/.zshrc
-  echo "export PATH=\$FSLDIR/bin:\$PATH" >> ~/.zshrc
+  echo "export PATH=$FSLDIR/bin:$PATH" >> ~/.zshrc
   ```
 - If you use `bash`, replace `.zshrc` with `.bashrc`.
 
