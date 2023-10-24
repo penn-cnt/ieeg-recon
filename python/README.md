@@ -66,21 +66,25 @@ If your device uses `bash` instead of `zsh`, replace the `.zshrc` in the two com
 
 ### Installing ANTs
 
-To install ANTs, the following commands should work for MacOS:
+To install ANTs, the following commands should work for MacOS.
+
+First, `homebrew` must be installed:
 
 ```
 # install homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-Installing `cmake`:
+After running the above command in the terminal, the script will prompt the user to add `homebrew` to the path. Please do so.
+
+After installing `homebrew`, we can install `cmake`, which ANTs requires:
 
 ```
 # install cmake
 brew install cmake
 ```
 
-Installing ANTs:
+Finally we can install ANTs:
 
 ```
 # install ANTs
@@ -98,9 +102,9 @@ Some registrations between the MRI and CT could be improved by an extra registra
 
 The `-g` flag, when running module 2 applies an extra, optional, rigid registration after FLIRT. The `-gc` flag, applies Greedy registration without applying FLIRT first. This approach is often faster and more accurate than doing FLIRT, therefore it should be used when possible. 
 
-Both Greedy and C3D need to be installed for this to work. They can both easily be installed through ITK-Snap (http://www.itksnap.org/pmwiki/pmwiki.php?n=Main.HomePage) by going to Help > Install Command Line Tools. If you would like to install these packages without ITK-Snap, the binaries can be found here: http://www.itksnap.org/pmwiki/pmwiki.php?n=Documentation.CommandLine.
+Both Greedy and C3D need to be installed for this to work. They can both easily be installed through ITK-Snap (http://www.itksnap.org/pmwiki/pmwiki.php?n=Downloads.SNAP4) by going to Help > Install Command Line Tools after installing ITK-SNAP. If you would like to install these packages without ITK-Snap, the binaries can be found here: http://www.itksnap.org/pmwiki/pmwiki.php?n=Documentation.CommandLine.
 
-If you already have ITK-SNAP installed on your MAC, you can simply use the following command in the terminal to get these tools:
+If you already have ITK-SNAP installed on your Mac, you can simply use the following command in the terminal to get these tools:
 
 ```
 sudo /Applications/ITK-SNAP.app/Contents/bin/install_cmdl.sh 
