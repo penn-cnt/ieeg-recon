@@ -110,6 +110,8 @@ For an overview of the pipeline as well as its usage see here: https://github.co
 
 For examples on how to run the electrode reconstruction through the GUI, see here: https://github.com/penn-cnt/ieeg-recon/blob/main/python/docs/Running_iEEG-recon.md
 
+An example dataset can be downloaded from [here](https://drive.google.com/uc?export=download&id=1ETcL4YliryjFeQ3DskD1vcNdtfBVmYx5)
+
 ## Example
 
 Given a subject named `sub-RID0031`, with its data located in a BIDS directory on my desktop that looks as such: 
