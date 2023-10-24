@@ -88,10 +88,17 @@ Finally we can install ANTs:
 
 ```
 # install ANTs
+mkdir ANTs
+cd ANTs
 curl -o installANTs.sh https://raw.githubusercontent.com/cookpa/antsInstallExample/master/installANTs.sh
 bash installANTs.sh
-export PATH=/app/install/bin:$PATH
-echo "export PATH=/app/install/bin:\$PATH" >> ~/.zshrc
+```
+
+After installation, add ANTs to your path. The complete path will depend on where you ran the command above, if you did so in your home directory (you opened the terminal and ran the command) it will be as below.
+
+```
+export PATH=~/ANTs/install/bin:$PATH
+echo "export PATH=~/ANTs/install/bin:$PATH" >> ~/.zshrc
 ```
 
 If your device uses `bash` instead of `zsh`, replace the `.zshrc` in the last command with `.bashrc`
