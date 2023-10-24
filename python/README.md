@@ -56,12 +56,18 @@ For MACs, the following set of commands should work for installing FSL:
 
 ```
 curl -o fslinstaller.py https://fsl.fmrib.ox.ac.uk/fsldownloads/fslconda/releases/fslinstaller.py
-echo -e "/usr/local/fsl\n" | python fslinstaller.py
-export FSLDIR=/usr/local/fsl
+python fslinstaller.py
+```
+
+Add FSL to the PATH (note if you installed FSL in a place other than the default location, please replace the FSLDIR variable below):
+
+```
+export FSLDIR=~/fsl
 export PATH=${FSLDIR}/bin:${PATH}
 echo "export FSLDIR=/usr/local/fsl" >> ~/.zshrc
 echo "export PATH=\$FSLDIR/bin:\$PATH" >> ~/.zshrc
 ```
+
 If your device uses `bash` instead of `zsh`, replace the `.zshrc` in the two commands with `.bashrc`
 
 ### Installing ANTs
