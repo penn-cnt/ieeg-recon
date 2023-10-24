@@ -21,107 +21,89 @@ Two versions of the GUI are available: one runs commands through a Docker contai
 
 We recommend using the Docker container available here: https://hub.docker.com/repository/docker/lucasalf11/ieeg_recon
 
-## Python 
+## Native Python Version
 
-For a standalone python installation, we recommend you have Anaconda (https://www.anaconda.com/products/distribution) with at least Python 3.7
+The Native Python version is the most flexible, but requires installing all of the dependencies manually. The instructions are below. If you already have these dependencies, and they are available in your system's path, there is no need to re-install them.
 
-With Anaconda and Python installed, clone the repository, and open a terminal window in the directory where the repository was cloned into. Type the following command:
+## 1. Install Anaconda and Python
+- **Anaconda**: Visit [Anaconda's Website](https://www.anaconda.com/products/distribution) and download Anaconda with at least Python 3.7.
 
-```
-conda env create -f ieeg_recon_config.yml
-```
+## 2. Set Up Your Python Environment
+- Open a terminal window.
+- Navigate to the directory where you cloned the repository. If you haven't cloned the repository yet, use this command: `git clone [repository-url]`.
 
-This will create a conda virtual environment called `ieeg_recon` that contains all of the dependencies. To activate the environment type:
+- Type the following command:
+  ```
+  bash ieeg-recon/python/install_ieeg-recon.sh
+  ```
+- This will create a new `conda` environment called `ieeg_recon_m1`. You can activate your new virtual environment with:
+  ```
+  conda activate ieeg_recon_m1
+  ```
 
-```
-conda activate ieeg_recon
-```
-#### M1/M2 Apple Devices
-If you have an Apple Silicon chip on your machine (M1/M2), after cloning the repository and with Anaconda installed, run the script `install_ieeg-recon_m1m2.sh` while inside the repository directory by doing:
+### If You Have M1/M2 Apple Devices
 
-```
-bash install_ieeg-recon_m1m2.sh
-```
-This will automatically create a virtual environment called `ieeg_recon_m1`. After running the above script, activate the environment by typing:
+- Inside the repository directory, run the following command:
+  ```
+  bash ieeg-recon/python/install_ieeg-recon_m1m2.sh
+  ```
+- Your can activate your new virtual environment with:
+  ```
+  conda activate ieeg_recon_m1
+  ```
 
-```
-conda activate ieeg_recon_m1
-```
+## 3. Install FSL
+
 
 ### Installing FSL
+- Go to [FSL's Installation Page](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation) and follow the instructions.
+- Alternatively, you can use the following commands to install FSL:
+  ```
+  curl -o fslinstaller.py https://fsl.fmrib.ox.ac.uk/fsldownloads/fslconda/releases/fslinstaller.py
+  python fslinstaller.py
 
-When using the standalone Python version, FSL must also be installed (https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation). Make sure the `$FSLDIR` variable is properly defined and FSL is sourced before running the `ieeg_recon` script.
+  ```
+- Once installed, add FSL to your PATH with these commands (replace [FSLDIR] with your installation directory, if you just opened the terminal and ran the command,`~/fsl` will be default):
+  ```
+  export FSLDIR=~/fsl
+  export PATH=${FSLDIR}/bin:${PATH}
+  echo "export FSLDIR=[FSLDIR]" >> ~/.zshrc
+  echo "export PATH=\$FSLDIR/bin:\$PATH" >> ~/.zshrc
+  ```
+- If you use `bash`, replace `.zshrc` with `.bashrc`.
 
-For MACs, the following set of commands should work for installing FSL:
+## 4. Install ANTs
+- Install `homebrew` with the following command:
+  ```
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ```
+- Follow the prompt to add `homebrew` to your PATH.
+- Install `cmake` with `homebrew`:
+  ```
+  brew install cmake
+  ```
+- Install ANTs:
+  ```
+  mkdir ANTs
+  cd ANTs
+  curl -o installANTs.sh https://raw.githubusercontent.com/cookpa/antsInstallExample/master/installANTs.sh
+  bash installANTs.sh
+  ```
+- Add ANTs to your PATH (if you installed ANTs outside of your home directory, you might have to modify the script below):
+  ```
+  export PATH=~/ANTs/install/bin:$PATH
+  echo "export PATH=~/ANTs/install/bin:$PATH" >> ~/.zshrc
+  ```
+- If you use `bash`, replace `.zshrc` with `.bashrc`.
 
-```
-curl -o fslinstaller.py https://fsl.fmrib.ox.ac.uk/fsldownloads/fslconda/releases/fslinstaller.py
-python fslinstaller.py
-```
+## 5. Install Greedy and C3D
+- Install ITK-Snap from [ITK-Snap's Website](http://www.itksnap.org/pmwiki/pmwiki.php?n=Downloads.SNAP4).
+- After installing ITK-Snap, go to `Help` > `Install Command Line Tools`.
+- Alternatively, you can install Greedy and C3D without ITK-Snap by downloading the binaries from [ITK-Snap's Documentation](http://www.itksnap.org/pmwiki/pmwiki.php?n=Documentation.CommandLine).
+- If you already have ITK-SNAP installed, use this command:
+  ```
+  sudo /Applications/ITK-SNAP.app/Contents/bin/install_cmdl.sh
 
-Add FSL to the PATH (note if you installed FSL in a place other than the default location, please replace the FSLDIR variable below):
-
-```
-export FSLDIR=~/fsl
-export PATH=${FSLDIR}/bin:${PATH}
-echo "export FSLDIR=/usr/local/fsl" >> ~/.zshrc
-echo "export PATH=\$FSLDIR/bin:\$PATH" >> ~/.zshrc
-```
-
-If your device uses `bash` instead of `zsh`, replace the `.zshrc` in the two commands with `.bashrc`
-
-### Installing ANTs
-
-To install ANTs, the following commands should work for MacOS.
-
-First, `homebrew` must be installed:
-
-```
-# install homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-After running the above command in the terminal, the script will prompt the user to add `homebrew` to the path. Please do so.
-
-After installing `homebrew`, we can install `cmake`, which ANTs requires:
-
-```
-# install cmake
-brew install cmake
-```
-
-Finally we can install ANTs:
-
-```
-# install ANTs
-mkdir ANTs
-cd ANTs
-curl -o installANTs.sh https://raw.githubusercontent.com/cookpa/antsInstallExample/master/installANTs.sh
-bash installANTs.sh
-```
-
-After installation, add ANTs to your path. The complete path will depend on where you ran the command above, if you did so in your home directory (you opened the terminal and ran the command) it will be as below.
-
-```
-export PATH=~/ANTs/install/bin:$PATH
-echo "export PATH=~/ANTs/install/bin:$PATH" >> ~/.zshrc
-```
-
-If your device uses `bash` instead of `zsh`, replace the `.zshrc` in the last command with `.bashrc`
-
-### Installing Greedy and C3D
-
-Some registrations between the MRI and CT could be improved by an extra registration step using Greedy (https://sites.google.com/view/greedyreg/about), which implements similar procedures as ANTs. 
-
-The `-g` flag, when running module 2 applies an extra, optional, rigid registration after FLIRT. The `-gc` flag, applies Greedy registration without applying FLIRT first. This approach is often faster and more accurate than doing FLIRT, therefore it should be used when possible. 
-
-Both Greedy and C3D need to be installed for this to work. They can both easily be installed through ITK-Snap (http://www.itksnap.org/pmwiki/pmwiki.php?n=Downloads.SNAP4) by going to Help > Install Command Line Tools after installing ITK-SNAP. If you would like to install these packages without ITK-Snap, the binaries can be found here: http://www.itksnap.org/pmwiki/pmwiki.php?n=Documentation.CommandLine.
-
-If you already have ITK-SNAP installed on your Mac, you can simply use the following command in the terminal to get these tools:
-
-```
-sudo /Applications/ITK-SNAP.app/Contents/bin/install_cmdl.sh 
-```
 # Usage
 
 For an overview of the pipeline as well as its usage see here: https://github.com/allucas/ieeg_recon/blob/main/figures/ieeg_recon.pdf
