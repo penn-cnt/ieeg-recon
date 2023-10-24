@@ -6,6 +6,13 @@ import subprocess
 import os
 from PIL import Image, ImageTk
 
+# Get the current script directory
+current_script_directory = os.path.dirname(os.path.abspath(__file__))
+
+# Replace the period with the current script directory
+standard_atlas_directory = os.path.join(current_script_directory, 'source_data', 'standard_atlases')
+
+
 def run_pipeline():
     # Construct the command based on GUI selections
     # this is basically a wrapper for the Docker command
