@@ -257,47 +257,73 @@ radius_entry = ttk.Entry(module3_frame, textvariable=radius_var)
 radius_entry.grid(row=1, column=1, padx=5, pady=5)
 radius_var.set("2")
 
+# Combobox that selects the standard atlases
+available_atlases = ["none"] + [a for a in os.listdir(standard_atlas_directory) if os.path.isdir(os.path.join(standard_atlas_directory, a))]
+ttk.Label(module3_frame, text="Standard Atlas:").grid(row=2, column=0, sticky=tk.W, padx=5, pady=5)
+atlas_var = tk.StringVar()
+atlas_dropdown = ttk.Combobox(module3_frame, textvariable=atlas_var, values=available_atlases, state="readonly")
+atlas_dropdown.grid(row=2, column=1, padx=5, pady=5)
+atlas_dropdown.set("none")  # Default value
+
+# Callback function to be called when a new atlas is selected from the combobox
+def on_atlas_selected(event):
+    selected_atlas = atlas_var.get()
+    if selected_atlas != "none":
+        convert_atlas_var.set(True)  # Automatically check the "Convert atlas from MNI" checkbox
+        atlas_path = os.path.join(standard_atlas_directory, selected_atlas, selected_atlas + 'MNI.nii.gz')
+        atlas_path_var.set(atlas_path)  # Populate the atlas path
+        atlas_name_var.set(selected_atlas)  # Populate the atlas name
+        atlas_lookup_table = os.path.join(standard_atlas_directory, selected_atlas, selected_atlas + '_lut.csv')
+        atlas_lookup_table_var.set(atlas_lookup_table)  # Populate the atlas lookup table
+    else:
+        convert_atlas_var.set(False)
+        atlas_path_var.set('')
+        atlas_name_var.set('')
+        atlas_lookup_table_var.set('')
+
+# Bind the callback function to the combobox
+atlas_dropdown.bind('<<ComboboxSelected>>', on_atlas_selected)
+
+
 # Atlas Path
-ttk.Label(module3_frame, text="Atlas Path:").grid(row=2, column=0, sticky=tk.W, padx=5, pady=5)
+ttk.Label(module3_frame, text="Atlas Path:").grid(row=3, column=0, sticky=tk.W, padx=5, pady=5)
 atlas_path_var = tk.StringVar()
 atlas_path_entry = ttk.Entry(module3_frame, textvariable=atlas_path_var)
-atlas_path_entry.grid(row=2, column=1, padx=5, pady=5)
-bb1 = ttk.Button(module3_frame, text="Browse", command=lambda: browse_directory(atlas_path_var)).grid(row=2, column=2, padx=5, pady=5)
+atlas_path_entry.grid(row=3, column=1, padx=5, pady=5)
+bb1 = ttk.Button(module3_frame, text="Browse", command=lambda: browse_for_file(atlas_path_var)).grid(row=3, column=2, padx=5, pady=5)
+
+convert_atlas_var = tk.BooleanVar()
+convert_atlas_chk = ttk.Checkbutton(module3_frame, text="Convert atlas from MNI", variable=convert_atlas_var)
+convert_atlas_chk.grid(row=3, column=3, columnspan=2, sticky=tk.W, padx=5, pady=5)
+
 
 # Atlas Name
-ttk.Label(module3_frame, text="Atlas Name:").grid(row=3, column=0, sticky=tk.W, padx=5, pady=5)
+ttk.Label(module3_frame, text="Atlas Name:").grid(row=4, column=0, sticky=tk.W, padx=5, pady=5)
 atlas_name_var = tk.StringVar()
 atlas_name_entry = ttk.Entry(module3_frame, textvariable=atlas_name_var)
-atlas_name_entry.grid(row=3, column=1, padx=5, pady=5)
-
-# ROI Indices
-ttk.Label(module3_frame, text="ROI Indices:").grid(row=4, column=0, sticky=tk.W, padx=5, pady=5)
-roi_indices_var = tk.StringVar()
-roi_indices_entry = ttk.Entry(module3_frame, textvariable=roi_indices_var)
-roi_indices_entry.grid(row=4, column=1, padx=5, pady=5)
-bb2 = ttk.Button(module3_frame, text="Browse", command=lambda: browse_for_file(roi_indices_var)).grid(row=4, column=2, padx=5, pady=5)
-
-# ROI Labels
-ttk.Label(module3_frame, text="ROI Labels:").grid(row=5, column=0, sticky=tk.W, padx=5, pady=5)
-roi_labels_var = tk.StringVar()
-roi_labels_entry = ttk.Entry(module3_frame, textvariable=roi_labels_var)
-roi_labels_entry.grid(row=5, column=1, padx=5, pady=5)
-bb3 = ttk.Button(module3_frame, text="Browse", command=lambda: browse_for_file(roi_labels_var)).grid(row=5, column=2, padx=5, pady=5)
-
-
-# iEEG Recon Directory
-ttk.Label(module3_frame, text="iEEG Recon Directory:").grid(row=6, column=0, sticky=tk.W, padx=5, pady=5)
-ieeg_recon_dir_var = tk.StringVar()
-ieeg_recon_dir_entry = ttk.Entry(module3_frame, textvariable=ieeg_recon_dir_var)
-ieeg_recon_dir_entry.grid(row=6, column=1, padx=5, pady=5)
-bb4 = ttk.Button(module3_frame, text="Browse", command=lambda: browse_directory(ieeg_recon_dir_var)).grid(row=6, column=2, padx=5, pady=5)
+atlas_name_entry.grid(row=4, column=1, padx=5, pady=5)
 
 # Atlas Lookup Table
-ttk.Label(module3_frame, text="Atlas Lookup Table:").grid(row=7, column=0, sticky=tk.W, padx=5, pady=5)
+ttk.Label(module3_frame, text="Atlas Lookup Table:").grid(row=5, column=0, sticky=tk.W, padx=5, pady=5)
 atlas_lookup_table_var = tk.StringVar()
 atlas_lookup_table_entry = ttk.Entry(module3_frame, textvariable=atlas_lookup_table_var)
-atlas_lookup_table_entry.grid(row=7, column=1, padx=5, pady=5)
-bb5 = ttk.Button(module3_frame, text="Browse", command=lambda: browse_for_file(atlas_lookup_table_var)).grid(row=7, column=2, padx=5, pady=5)
+atlas_lookup_table_entry.grid(row=5, column=1, padx=5, pady=5)
+bb5 = ttk.Button(module3_frame, text="Browse", command=lambda: browse_for_file(atlas_lookup_table_var)).grid(row=5, column=2, padx=5, pady=5)
+
+
+# ROI Indices
+ttk.Label(module3_frame, text="ROI Indices:").grid(row=6, column=0, sticky=tk.W, padx=5, pady=5)
+roi_indices_var = tk.StringVar()
+roi_indices_entry = ttk.Entry(module3_frame, textvariable=roi_indices_var)
+roi_indices_entry.grid(row=6, column=1, padx=5, pady=5)
+bb2 = ttk.Button(module3_frame, text="Browse", command=lambda: browse_for_file(roi_indices_var)).grid(row=6, column=2, padx=5, pady=5)
+
+# ROI Labels
+ttk.Label(module3_frame, text="ROI Labels:").grid(row=7, column=0, sticky=tk.W, padx=5, pady=5)
+roi_labels_var = tk.StringVar()
+roi_labels_entry = ttk.Entry(module3_frame, textvariable=roi_labels_var)
+roi_labels_entry.grid(row=7, column=1, padx=5, pady=5)
+bb3 = ttk.Button(module3_frame, text="Browse", command=lambda: browse_for_file(roi_labels_var)).grid(row=7, column=2, padx=5, pady=5)
 
 
 module3_inputs = [
@@ -321,4 +347,3 @@ run_button.grid(row=10, column=2, padx=10, pady=20)
 
 
 app.mainloop()
-
