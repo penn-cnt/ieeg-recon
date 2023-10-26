@@ -72,7 +72,7 @@ def open_file_creator():
     subprocess.call(cmd)
 
 def open_voxtool():
-    cmd = ["voxtool"]
+    cmd = ["bash","run_voxtool.sh"]
     subprocess.call(cmd)
 
 def browse_directory(var):
