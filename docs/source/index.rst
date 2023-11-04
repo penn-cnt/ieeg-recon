@@ -29,6 +29,7 @@ Table of Contents
 .. toctree::
    introduction
    Getting Started
+   Running the App
    module 1
    module 2
    module 3

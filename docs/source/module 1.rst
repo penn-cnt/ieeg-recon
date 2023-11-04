@@ -28,19 +28,17 @@ Make sure your input patient data is organized according to the pseudo-BIDS stru
 
    *  Electrode coordinates in CT space: ieeg/:blue:`sub-XXXX_`:red:`ses-YYYY`\_\ :green:`space-T01ct`\_ :cyan:`desc-vox`\_\ :pink:`electrodes`.txt
   
-Setup
----------
+Setup & Run
+-------------
 
-In a terminal window, type the following to install voxtool
+If using the ieeg-recon App, select the VoxTool option at the bottom of the GUI.
+If running from the command line: In a terminal window, type the following to install voxtool
 
 .. code-block:: console
 
   $ pip install voxtool
 
-Run
-------------
-
-In terminal, type: 
+Run voxtool: 
 
 .. code-block:: console
 

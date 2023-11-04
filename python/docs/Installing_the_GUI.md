@@ -43,7 +43,7 @@ If the above code ran successfully, you should be able to find iEEG-recon in you
 
 Make sure you change your terminal to run with Rosetta before completing the above steps. To do so, open `Finder -> Applications -> Utilities`, then right click the `Terminal` app, and select `Get Info`. Under `General`, select `Open using Rosetta`
 
-![](./screenshots/1.png)
+![](../../docs/source/images/screenshots/1.png)
 
 
 

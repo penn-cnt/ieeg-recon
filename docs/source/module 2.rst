@@ -6,7 +6,7 @@
 .. role:: cyan
 
 
-
+.. _Module 2:
 
 Module 2
 ==========
@@ -143,19 +143,19 @@ Module 2 generates a number of transformed image files
 
 The next three outputs are the original CT scan, thresholded CT scan, and electrode spheres in native T01 CT space, transformed to the RAS (Right, Anterior, Superior) coordinate system. The units of RAS are voxels, and the voxels are indexed from left to right, posterior to anterior, and inferior to superior, respectively: 
 
-- :blue:`sub-xxxx_`:red:`ses_yy`\_acq-3D_\ :green:`space-T01ct`\_ct_ras_electrode_spheres.nii.gz
-- :blue:`sub-xxxx_`:red:`ses_yy`\_acq-3D_\ :green:`space-T01ct`\_ct_ras_thresholded.nii.gz
-- :blue:`sub-xxxx_`:red:`ses_yy`\_acq-3D_\ :green:`space-T01ct`\_ct_ras.nii.gz
+.. - :blue:`sub-xxxx_`:red:`ses_yy`\_acq-3D_\ :green:`space-T01ct`\_ct_ras_electrode_spheres.nii.gz
+.. - :blue:`sub-xxxx_`:red:`ses_yy`\_acq-3D_\ :green:`space-T01ct`\_ct_ras_thresholded.nii.gz
+.. - :blue:`sub-xxxx_`:red:`ses_yy`\_acq-3D_\ :green:`space-T01ct`\_ct_ras.nii.gz
 
 Coordinate files
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
 - :blue:`sub-xxxx_`:red:`ses_yy`\_\ :green:`space-T00mri`\_desc-mm_electrodes.txt
 - :blue:`sub-xxxx_`:red:`ses_yy`\_\ :green:`space-T00mri`\_desc-vox_electrodes.txt
 - :blue:`sub-xxxx_`:red:`ses_yy`\_electrode_names.txt
 - :blue:`sub-xxxx_`:red:`ses_yy`\_orig_coords_in_mm.txt
   
 Transformation Matrices
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^
 - :blue:`sub-xxxx_`:red:`ses_yy`\_T00mri_to_T01ct_fsl.mat
 - :blue:`sub-xxxx_`:red:`ses_yy`\_T01ct_to_T00mri_fsl.mat
 - :blue:`sub-xxxx_`:red:`ses_yy`\_T00mri_to_T01ct_greedy.mat (if using Greedy)
