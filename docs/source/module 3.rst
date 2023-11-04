@@ -17,23 +17,29 @@ Module 3 assigns electrodes in the pre-implant MRI space to a specific brain reg
    - Electrode coords in CT space: ieeg/:blue:`sub-XXXX_`:red:`ses-YYYY`\_\ :green:`space-T01ct`\_ :cyan:`desc-vox`\_\ :pink:`electrodes`.txt
   
 * Output Files (in `sub-xxx/derivatives/ieeg_recon/module3/`)
-   - sub-XXX_ses-YYYY_space-T00mri_atlas-ZZZZ_radius-#_desc-vox_coordinates.csv
-   - sub-XXX_ses-YYYY_space-T00mri_atlas-ZZZZ_radius-#_desc-vox_coordinates.json
-   - sub-XXX_ses-YYYY_space-T00mri_atlas-ZZZZ_radius-#_desc-vox_coordinates.txt
-   - sub-XXX_ses-YYYY_space-T00mri_atlas-ZZZZ_radius-#_sampling_mask.nii.gz
-   - sub-XXX_ses-YYYY_space-T00mri_atlas-ZZZZ.nii.gz
+   - :blue:`sub-xxxx_`:red:`ses-yy`\_\ :green:`space-T00mri`\_atlas-ZZZZ_radius-#_desc-vox_coordinates.csv
+   - :blue:`sub-xxxx_`:red:`ses-yy`\_\ :green:`space-T00mri`\_atlas-ZZZZ_radius-#_desc-vox_coordinates.json
+   - :blue:`sub-xxxx_`:red:`ses-yy`\_\ :green:`space-T00mri`\_atlas-ZZZZ_radius-#_desc-vox_coordinates.txt
+   - :blue:`sub-xxxx_`:red:`ses-yy`\_\ :green:`space-T00mri`\_atlas-ZZZZ_radius-#_sampling_mask.nii.gz
+   - :blue:`sub-xxxx_`:red:`ses-yy`\_\ :green:`space-T00mri`\_atlas-ZZZZ.nii.gz
    - MNI/
       - greedy_afine_fsl.mat
       - greedy_afine.mat
-      - sub-XXX_ses-YYYY_acq-3D_space-MNI152NLin2009cAsym_T1w_electrode_spheres.nii.gz
-      - sub-XXX_ses-YYYY_acq-3D_space-MNI152NLin2009cAsym_T1w.nii.gz
-      - sub-XXX_ses-YYYY_space-MNI152NLin2009cAsym_desc-vox_electrodes.txt
-      - sub-XXX_ses-YYYY_T00mri_MNI_registration.svg
+      - :blue:`sub-xxxx_`:red:`ses-yy`\_acq-3D_space-MNI152NLin2009cAsym_T1w_electrode_spheres.nii.gz
+      - :blue:`sub-xxxx_`:red:`ses-yy`\_acq-3D_space-MNI152NLin2009cAsym_T1w.nii.gz
+      - :blue:`sub-xxxx_`:red:`ses-yy`\_space-MNI152NLin2009cAsym_desc-vox_electrodes.txt
+      - :blue:`sub-xxxx_`:red:`ses-yy`\_T00mri_MNI_registration.svg
 
 Running Module 3 
 -----------------
 
-Make sure your input patient data is organized according to the pseudo-BIDS structure outlined in :ref:`Data Setup`. You can also run the tutorial with our `example data <https://www.dropbox.com/sh/ylxc586grm0p7au/AAAs8QQwUo0VQOSweDyj1v_ta?dl=0>`_. You can run Module 3 using the AntSpyNet atlas (default) or by specifying any Freesurfer Atlas. The code below demonstrates how to run Module 3 
+If running from the iEEG-recon Application, follow the :ref:`Running the App` instructions. 
+
+If running from the command line, make sure your input patient data is organized according to the pseudo-BIDS structure outlined in :ref:`Data Setup`.
+You can also run the tutorial with our `example data <https://www.dropbox.com/sh/ylxc586grm0p7au/AAAs8QQwUo0VQOSweDyj1v_ta?dl=0>`_. 
+You can run Module 3 using the AntSpyNet atlas (default) or by specifying any Freesurfer Atlas. 
+
+The code below demonstrates how to run Module 3 from the command line. 
 
 Run using AntSpyNet atlas 
 ^^^^^^^^^^^^^^^^^^^^^^^

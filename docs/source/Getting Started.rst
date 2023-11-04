@@ -11,10 +11,10 @@ Getting Started
 
 ====
 
-Quickstart: Run ieeg-recon App with Docker
+Quickstart: Run iEEG-recon App with Docker
 -----------------------------------------------
 
-We recommend installing the **ieeg-recon** App that runs in our standalone Docker container. This quickstart option eliminates the overhead of manually installing multiple third-party software packages. However, if you would like to tinker with the codebase, the subsequent sections detail the steps to get ieeg-recon up and running in python or MATLAB. 
+We recommend installing the **iEEG-recon** App that runs in our standalone Docker container. This quickstart option eliminates the overhead of manually installing multiple third-party software packages. However, if you would like to tinker with the codebase, the subsequent sections detail the steps to get iEEG-recon up and running in python or MATLAB. 
 
 .. note::
    
@@ -27,11 +27,11 @@ We recommend installing the **ieeg-recon** App that runs in our standalone Docke
 
    * `Anaconda <https://hub.docker.com>`_
   
-#. In a Terminal window, download the latest release of **ieeg-recon**:  
+#. In a Terminal window, download the latest release of **iEEG-recon**:  
       ``git clone https://github.com/penn-cnt/ieeg-recon.git``
-#. Open **ieeg-recon** in a Terminal window, then run the installation command: 
+#. Open **iEEG-recon** in a Terminal window, then run the installation command: 
        ``bash ieeg-recon/python/install_ieeg-recon_gui_docker.sh``
-#. The **ieeg-recon** application should now be found in your Applications folder
+#. The **iEEG-recon** application should now be found in your Applications folder
 #. Follow instructions on the :ref:`Running the App` page. 
 
 
@@ -40,7 +40,7 @@ We recommend installing the **ieeg-recon** App that runs in our standalone Docke
 Requirements
 --------------
 
-The following software packages are required to run **ieeg-recon** in Python or MATLAB:
+The following software packages are required to run **iEEG-recon** in Python or MATLAB:
 
 *  `Anaconda <https://www.anaconda.com/products/distribution>`_  (Note, make sure you download the correct version for your operating system)
 *  `MATLAB <https://matlab.mathworks.com>`_ >=2020a (only if using MATLAB tools)
@@ -56,7 +56,7 @@ The following software packages are required to run **ieeg-recon** in Python or 
 Installation
 ------------
 
-To use **ieeg-recon**, first clone the repository:
+To use **iEEG-recon**, first clone the repository:
 
 .. code-block:: console
 
@@ -67,7 +67,7 @@ To use **ieeg-recon**, first clone the repository:
 
    .. tab:: Python
 
-      To install the **ieeg-recon** GUI:
+      To install the **iEEG-recon** GUI:
 
       .. code-block:: console
          
@@ -131,7 +131,7 @@ To use **ieeg-recon**, first clone the repository:
 Data Setup
 ----------------
 
-**ieeg-recon** takes a reference MRI scan and a post-operative CT scan in NIfTI format (.ni.gz) as inputs. The data must be organized for each subject in a `BIDS-like <https://bids.neuroimaging.io>`_ folder structure as follows: 
+**iEEG-recon** takes a reference MRI scan and a post-operative CT scan in NIfTI format (.ni.gz) as inputs. The data must be organized for each subject in a `BIDS-like <https://bids.neuroimaging.io>`_ folder structure as follows: 
 
    | BIDS/
    |  |__ :blue:`sub-XXXX`/

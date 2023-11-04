@@ -53,8 +53,12 @@ In this module, each subject's CT and MRI images will be linearly aligned (co-re
 
 Running Module 2
 ------------------
-First, make sure your input patient data is organized according to the pseudo-BIDS structure outlined in :ref:`Data Setup`. You can also run this tutorial with our `example data <https://www.dropbox.com/sh/ylxc586grm0p7au/AAAs8QQwUo0VQOSweDyj1v_ta?dl=0>`_.
+If running from the iEEG-recon Application, follow the :ref:`Running the App` instructions. 
 
+If running from the command line, first make sure your input patient data is organized according to the pseudo-BIDS structure outlined in :ref:`Data Setup`.
+You can also run this tutorial with our `example data <https://www.dropbox.com/sh/ylxc586grm0p7au/AAAs8QQwUo0VQOSweDyj1v_ta?dl=0>`_.
+
+The code below demonstrates how to run Module 2 from the command line. 
 
 .. tabs::
 
