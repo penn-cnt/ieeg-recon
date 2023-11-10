@@ -182,7 +182,7 @@ singularity pull docker://lucasalf11/ieeg_recon:1.0
 To execute the same procedure as above but in Singularity, the following command would be used:
 
 ```
-singularity run -B Desktop/BIDS/:/source_data lucasalf11/ieeg_recon:1.0 -s sub-RID0031 -d /source_data -cs ses-clinical01 -rs ses-research3T -gc -m -1 -apn -r 2
+singularity run -B Desktop/BIDS/:/source_data ieeg_recon_1.0.sif -s sub-RID0031 -d /source_data -cs ses-clinical01 -rs ses-research3T -gc -m -1 -apn -r 2
 ```
 
 This is identical to the Docker command, but the mount flag `-v` is replaced by `-B`
