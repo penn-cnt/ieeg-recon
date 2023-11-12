@@ -207,8 +207,13 @@ save_view(0, -90, os.path.join(brainshift_folder,'left_view_after.png'))
 os.rename(os.path.join(mod2_folder, subject+'_'+reference_session+'_space-T00mri_desc-vox_electrodes.txt'),
           os.path.join(mod2_folder, subject+'_'+reference_session+'_space-T00mri_desc-vox_electrodes_before_brainshift.txt'))
 
-os.rename(os.path.join(mod2_folder, subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w_electrode_spheres.nii.gz'),
-          os.path.join(mod2_folder, subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w_electrode_spheres_before_brainshift.nii.gz'))
+try:
+    os.rename(os.path.join(mod2_folder, subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w_electrode_spheres.nii.gz'),
+              os.path.join(mod2_folder, subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w_electrode_spheres_before_brainshift.nii.gz'))
+except:
+    os.rename(os.path.join(mod2_folder, subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w_ras_electrode_spheres.nii.gz'),
+              os.path.join(mod2_folder, subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w_electrode_spheres_before_brainshift.nii.gz'))
+
 
 #### Save the new module 2 outputs after brainshift
 

@@ -67,7 +67,7 @@ else:
     templates= {
     'mri_coords': '{subject}_{session}_space-T00mri_desc-vox_electrodes.txt',
     'preimplant_mri_ras': '{subject}_{session_reference}_acq-3D_space-T00mri_T1w_ras.nii.gz',
-    'spheres_file': '{subject}_{session}_acq-3D_space-T00mri_T1w_electrode_spheres.nii.gz',
+    'spheres_file': '{subject}_{session}_acq-3D_space-T00mri_T1w_ras_electrode_spheres.nii.gz',
     'ct':'{subject}_{session_clinical}_acq-3D_space-T00mri_ct_thresholded.nii.gz',
     'coords_in_mri':'{subject}_{session_reference}_space-T00mri_desc-mm_electrodes.txt'}
 
