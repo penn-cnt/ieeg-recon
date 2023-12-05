@@ -37,10 +37,14 @@ mod3_folder = os.path.join(source_dir,subject,'derivatives','ieeg_recon', 'modul
 freesurfer_dir = args.freesurfer_dir
 
 # Load the MRI
+
+has_ras = False
+
 if os.path.exists(os.path.join(clinical_module_dir,'MRI_RAS', subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w.nii.gz')):
     img_path = os.path.join(clinical_module_dir,'MRI_RAS', subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w.nii.gz')
 else:
     img_path = os.path.join(clinical_module_dir, subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w_ras.nii.gz')
+    has_ras = True
 
 # Load the freesurfer data
 lh_pial = nib.freesurfer.read_geometry(os.path.join(freesurfer_dir,'surf/lh.pial'))
@@ -258,5 +262,8 @@ val = 0
 for coord in new_coords:
     val += 1
     new_spheres = generate_sphere(new_spheres, int(coord[0]), int(coord[1]), int(coord[2]), 2, val)
-
-nib.save(nib.Nifti1Image(new_spheres, volume_recon.affine),os.path.join(mod2_folder, subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w_electrode_spheres.nii.gz'))
+    
+if has_ras:
+    nib.save(nib.Nifti1Image(new_spheres, volume_recon.affine),os.path.join(mod2_folder, subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w_ras_electrode_spheres.nii.gz'))
+else:
+    nib.save(nib.Nifti1Image(new_spheres, volume_recon.affine),os.path.join(mod2_folder, subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w_electrode_spheres.nii.gz'))
