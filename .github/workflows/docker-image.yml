@@ -15,6 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build /python/docker --file Dockerfile --tag lucasalf11/ieeg_recon:test
+      run: docker build python/docker --file Dockerfile --tag lucasalf11/ieeg_recon:test
     - name: Push the docker image
       run: docker login -u lucasalf11 -p ${{ secrets.DOCKER_TOKEN }} && docker push lucasalf11/ieeg_recon:test
