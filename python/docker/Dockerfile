@@ -172,15 +172,15 @@ RUN mkdir /opt/ieeg_recon \
 # Check that the file exits
 RUN ls -la /opt/ieeg_recon/*
 
-RUN ls -la /opt/ieeg_recon/ieeg_recon/python/docker/
+RUN ls -la /opt/ieeg_recon/python/docker/
 
 # Copy the main scripts from the repository folder to the code folder
 
-RUN cp /opt/ieeg_recon/ieeg_recon/python/docker/ieeg_recon_main_docker.py /code/ieeg_recon_v2.py \
-  && cp /opt/ieeg_recon/ieeg_recon/python/pipeline/* /code \
-  && cp /opt/ieeg_recon/ieeg_recon/python/reports/* /code \
-  && cp /opt/ieeg_recon/ieeg_recon/python/source_data/* /code \
-  && cp /opt/ieeg_recon/ieeg_recon/python/docker/brain_shift.py /code 
+RUN cp /opt/ieeg_recon/python/docker/ieeg_recon_main_docker.py /code/ieeg_recon_v2.py \
+  && cp /opt/ieeg_recon/python/pipeline/* /code \
+  && cp /opt/ieeg_recon/python/reports/* /code \
+  && cp /opt/ieeg_recon/python/source_data/* /code \
+  && cp /opt/ieeg_recon/python/docker/brain_shift.py /code 
   # the brain shift code is different
 
 RUN chmod +x /code/ieeg_recon_v2.py
