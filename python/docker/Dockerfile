@@ -169,6 +169,11 @@ RUN mkdir /opt/ieeg_recon \
   && cd /opt/ieeg_recon \
   && git clone https://github.com/penn-cnt/ieeg-recon.git
 
+# Check that the file exits
+RUN ls -la /opt/ieeg_recon/*
+
+RUN ls -la /opt/ieeg_recon/ieeg_recon/python/docker/
+
 # Copy the main scripts from the repository folder to the code folder
 
 RUN cp /opt/ieeg_recon/ieeg_recon/python/docker/ieeg_recon_main_docker.py /code/ieeg_recon_v2.py \
