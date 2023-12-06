@@ -150,9 +150,6 @@ def run_mni(args):
 
 def run_module3(args):
     # this function runs module 3 with additional submodules
-    # Determine atlas lookup parameters
-    atlas_lookup_params = get_atlas_lookup_params(args)
-
     
     # run MNI transform
     mni_xfm_file = os.path.join(args.source_directory,args.subject,'derivatives','ieeg_recon','module3','MNI',args.subject+'_'+args.reference_session+'_MNI152NLin2009cAsym_to_T00mri.h5')
@@ -162,7 +159,10 @@ def run_module3(args):
     if args.convert_atlas:
         subprocess.call(["python", "pipeline/module3_atlas_from_mni.py", "-s", args.subject, "-rs", args.reference_session, "-a", args.atlas_path,"-an",args.atlas_name,"-d", args.source_directory])
         args.atlas_path = os.path.join(args.source_directory,args.subject,'derivatives','ieeg_recon','module3',args.subject+'_'+args.reference_session+'_space-T00mri_atlas-'+args.atlas_name+'.nii.gz')
-
+    
+    
+    # Determine atlas lookup parameters
+    atlas_lookup_params = get_atlas_lookup_params(args)
     run_core_module3(args, atlas_lookup_params)
 
 def main():
