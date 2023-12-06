@@ -4,7 +4,6 @@ import os
 import numpy as np
 import nibabel as nib
 import ants
-from mayavi import mlab
 
 
 ## Argument Parser
@@ -163,48 +162,51 @@ result = minimize(objective, x0, constraints=cons)
 
 optimized_e = result.x.reshape(N, 3)
 
-#### Create a figure of before and after ####
-
-# Before
-mlab.triangular_mesh(transformed_vertices[:, 0], transformed_vertices[:, 1], transformed_vertices[:, 2], triangles, color=(1,0.85,0.85))
-#mlab.triangular_mesh(vertices[:, 0], vertices[:, 1], vertices[:, 2], triangles)
-
-# Assuming electrode_coordinates is already defined
-for coord in electrode_coordinates:
-    mlab.points3d(coord[0], coord[1], coord[2], scale_factor=4, color=(1, 0, 0)) # Scale factor is double the radius
-
-
-# Define a function to adjust the camera view and save it
-def save_view(azimuth, elevation, filename):
-    mlab.view(azimuth=azimuth, elevation=elevation)
-    mlab.savefig(filename)
-
-# Save left, right, top, and bottom views
-save_view(0, 0, os.path.join(brainshift_folder,'top_view_before.png'))
-save_view(0, 180, os.path.join(brainshift_folder,'bottom_view_before.png'))
-save_view(0, 90, os.path.join(brainshift_folder,'right_view_before.png'))
-save_view(0, -90, os.path.join(brainshift_folder,'left_view_before.png'))
-
-
-# After
-mlab.triangular_mesh(transformed_vertices[:, 0], transformed_vertices[:, 1], transformed_vertices[:, 2], triangles, color=(1,0.85,0.85))
-#mlab.triangular_mesh(vertices[:, 0], vertices[:, 1], vertices[:, 2], triangles)
-
-# Assuming electrode_coordinates is already defined
-for coord in optimized_e:
-    mlab.points3d(coord[0], coord[1], coord[2], scale_factor=4, color=(1, 0, 0)) # Scale factor is double the radius
-
-
-# Define a function to adjust the camera view and save it
-def save_view(azimuth, elevation, filename):
-    mlab.view(azimuth=azimuth, elevation=elevation)
-    mlab.savefig(filename)
-
-# Save left, right, top, and bottom views
-save_view(0, 0, os.path.join(brainshift_folder,'top_view_after.png'))
-save_view(0, 180, os.path.join(brainshift_folder,'bottom_view_after.png'))
-save_view(0, 90, os.path.join(brainshift_folder,'right_view_after.png'))
-save_view(0, -90, os.path.join(brainshift_folder,'left_view_after.png'))
+# Check if inside a docker container, if so, do not create the visualizations (it crashes unfortunately)
+if os.path.exists("/opt/ieeg_recon/ieeg-recon/python/docker"):
+    from mayavi import mlab
+    #### Create a figure of before and after ####
+    
+    # Before
+    mlab.triangular_mesh(transformed_vertices[:, 0], transformed_vertices[:, 1], transformed_vertices[:, 2], triangles, color=(1,0.85,0.85))
+    #mlab.triangular_mesh(vertices[:, 0], vertices[:, 1], vertices[:, 2], triangles)
+    
+    # Assuming electrode_coordinates is already defined
+    for coord in electrode_coordinates:
+        mlab.points3d(coord[0], coord[1], coord[2], scale_factor=4, color=(1, 0, 0)) # Scale factor is double the radius
+    
+    
+    # Define a function to adjust the camera view and save it
+    def save_view(azimuth, elevation, filename):
+        mlab.view(azimuth=azimuth, elevation=elevation)
+        mlab.savefig(filename)
+    
+    # Save left, right, top, and bottom views
+    save_view(0, 0, os.path.join(brainshift_folder,'top_view_before.png'))
+    save_view(0, 180, os.path.join(brainshift_folder,'bottom_view_before.png'))
+    save_view(0, 90, os.path.join(brainshift_folder,'right_view_before.png'))
+    save_view(0, -90, os.path.join(brainshift_folder,'left_view_before.png'))
+    
+    
+    # After
+    mlab.triangular_mesh(transformed_vertices[:, 0], transformed_vertices[:, 1], transformed_vertices[:, 2], triangles, color=(1,0.85,0.85))
+    #mlab.triangular_mesh(vertices[:, 0], vertices[:, 1], vertices[:, 2], triangles)
+    
+    # Assuming electrode_coordinates is already defined
+    for coord in optimized_e:
+        mlab.points3d(coord[0], coord[1], coord[2], scale_factor=4, color=(1, 0, 0)) # Scale factor is double the radius
+    
+    
+    # Define a function to adjust the camera view and save it
+    def save_view(azimuth, elevation, filename):
+        mlab.view(azimuth=azimuth, elevation=elevation)
+        mlab.savefig(filename)
+    
+    # Save left, right, top, and bottom views
+    save_view(0, 0, os.path.join(brainshift_folder,'top_view_after.png'))
+    save_view(0, 180, os.path.join(brainshift_folder,'bottom_view_after.png'))
+    save_view(0, 90, os.path.join(brainshift_folder,'right_view_after.png'))
+    save_view(0, -90, os.path.join(brainshift_folder,'left_view_after.png'))
 
 #### Rename the module 2 outputs to before brainshift
 
