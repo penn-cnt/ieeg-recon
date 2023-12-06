@@ -940,9 +940,9 @@ def create_itk_snap_label_file():
     for i in range(len(coords_name)):
         line = []
         line.append(i+1)
-        line.append(np.random.randint(0,255)) # R
-        line.append(np.random.randint(0,255)) # G
-        line.append(np.random.randint(0,255)) # B
+        line.append(0) # R
+        line.append(255) # G
+        line.append(0) # B
         line.append(1)
         line.append(1)
         line.append(1)
