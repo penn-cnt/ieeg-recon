@@ -13,6 +13,8 @@ from nipype.interfaces import (
 from nipype import Node, Workflow, SelectFiles, MapNode
 from nipype.interfaces.utility import Function
 
+import pathlib
+
 import os
 
 ## Relevant function definitions
@@ -108,6 +110,8 @@ reference_session = args.reference_session
 if os.path.exists(atlas_module_dir) == False:
     os.mkdir(atlas_module_dir)
 
+# parent directory
+starting_dir = str(pathlib.Path(__file__).parent.resolve())
 
 # Check if the AntsPyNet flag is specified for the segmentation, if so, apply it to the MRI
 if args.ants_pynet:
@@ -159,13 +163,13 @@ if args.ants_pynet == False:
 else:
     atlas_dkt = nib.load(antspynet_out_path)
     atlas_name_dkt = 'DKTantspynet'
-    lut_dkt = pd.read_csv('source_data/antspynet_labels.csv',header=None, delimiter=',').values
+    lut_dkt = pd.read_csv(starting_dir+'/../source_data/antspynet_labels.csv',header=None, delimiter=',').values
     roi_indices_dkt = lut_dkt[:,0]
     roi_labels_dkt = lut_dkt[:,1]
 
     atlas_atropos = nib.load(atropos_out_path)
     atlas_name_atropos = 'atropos'
-    lut_atropos = pd.read_csv('source_data/atropos_labels.csv',header=None, delimiter=',').values
+    lut_atropos = pd.read_csv(starting_dir+'/../source_data/atropos_labels.csv',header=None, delimiter=',').values
     roi_indices_atropos = lut_atropos[:,0]
     roi_labels_atropos = lut_atropos[:,1]
 

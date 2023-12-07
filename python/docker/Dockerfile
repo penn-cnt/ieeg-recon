@@ -177,6 +177,6 @@ RUN chmod +x /opt/ieeg_recon/ieeg-recon/python/ieeg_recon.py
 
 WORKDIR /opt/ieeg_recon/ieeg-recon/python/
 
-ENTRYPOINT ["python","ieeg_recon.py"]
+ENTRYPOINT ["python","/opt/ieeg_recon/ieeg-recon/python/ieeg_recon.py"]
 
 
