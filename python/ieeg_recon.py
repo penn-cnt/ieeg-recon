@@ -5,6 +5,9 @@ import os
 import subprocess
 import sys
 
+def get_script_path():
+    return os.path.dirname(os.path.realpath(sys.argv[0]))
+
 def parse_args():
     parser = argparse.ArgumentParser()
 
@@ -98,7 +101,7 @@ def get_atlas_lookup_params(args):
         return None
 
 def run_module2(args):
-    cmd = ["python", "pipeline/module2.py", "-s", args.subject, "-rs", args.reference_session, "-d", args.source_directory, "-cs", args.clinical_session]
+    cmd = ["python", os.path.join(get_script_path(),"pipeline/module2.py"), "-s", args.subject, "-rs", args.reference_session, "-d", args.source_directory, "-cs", args.clinical_session]
     
     if args.greedy:
         print('Module 2 is using Greedy correction ...')
@@ -111,11 +114,11 @@ def run_module2(args):
     
     if args.deface_outputs:
         print("Defacing outputs...")
-        subprocess.call(["python","pipeline/module2_deface_outputs.py","-s", args.subject, "-d", args.source_directory])
+        subprocess.call(["python",os.path.join(get_script_path(),"pipeline/module2_deface_outputs.py"),"-s", args.subject, "-d", args.source_directory])
 
     if args.brain_shift:
         print("Applying brain shift correction to module 2 outputs...")
-        subprocess.call(["python", "pipeline/brain_shift.py", "-s", args.subject, "-rs", args.reference_session, "-d", args.source_directory, "-fs", args.freesurfer_dir, "-cs", args.clinical_session])
+        subprocess.call(["python", os.path.join(get_script_path(),"pipeline/brain_shift.py"), "-s", args.subject, "-rs", args.reference_session, "-d", args.source_directory, "-fs", args.freesurfer_dir, "-cs", args.clinical_session])
 
 def run_core_module3(args, atlas_lookup_params):
     if atlas_lookup_params!=None:
@@ -125,7 +128,7 @@ def run_core_module3(args, atlas_lookup_params):
             clinical_module_dir = args.ieeg_recon_dir
 
         cmd = [
-            "python", "pipeline/module3.py", 
+            "python", os.path.join(get_script_path(),"pipeline/module3.py"), 
             "-s", args.subject, 
             "-rs", args.reference_session, 
             "-ird", clinical_module_dir, 
@@ -140,19 +143,16 @@ def run_core_module3(args, atlas_lookup_params):
         
 
 def run_reports(args):
-    subprocess.call(["python", "reports/create_workspace.py", "-s", args.subject, "-rs", args.reference_session, "-d", args.source_directory, "-cs", args.clinical_session])
-    subprocess.call(["python", "reports/create_html.py", "-s", args.subject, "-rs", args.reference_session, "-d", args.source_directory, "-cs", args.clinical_session])
+    subprocess.call(["python", os.path.join(get_script_path(),"reports/create_workspace.py"), "-s", args.subject, "-rs", args.reference_session, "-d", args.source_directory, "-cs", args.clinical_session])
+    subprocess.call(["python", os.path.join(get_script_path(),"reports/create_html.py"), "-s", args.subject, "-rs", args.reference_session, "-d", args.source_directory, "-cs", args.clinical_session])
 
 def run_mni(args):
     print('Running MNI registration, make sure Module 2 has ran already (i.e. run with -m 2 or -m -1 flags if not)')
-    subprocess.call(["python", "pipeline/module3_mni_V2.py", "-s", args.subject, "-rs", args.reference_session, "-cs", args.clinical_session,"-d", args.source_directory])
+    subprocess.call(["python", os.path.join(get_script_path(),"pipeline/module3_mni_V2.py"), "-s", args.subject, "-rs", args.reference_session, "-cs", args.clinical_session,"-d", args.source_directory])
 
 
 def run_module3(args):
     # this function runs module 3 with additional submodules
-    # Determine atlas lookup parameters
-    atlas_lookup_params = get_atlas_lookup_params(args)
-
     
     # run MNI transform
     mni_xfm_file = os.path.join(args.source_directory,args.subject,'derivatives','ieeg_recon','module3','MNI',args.subject+'_'+args.reference_session+'_MNI152NLin2009cAsym_to_T00mri.h5')
@@ -160,9 +160,12 @@ def run_module3(args):
         run_mni(args)
     
     if args.convert_atlas:
-        subprocess.call(["python", "pipeline/module3_atlas_from_mni.py", "-s", args.subject, "-rs", args.reference_session, "-a", args.atlas_path,"-an",args.atlas_name,"-d", args.source_directory])
+        subprocess.call(["python", os.path.join(get_script_path(),"pipeline/module3_atlas_from_mni.py"), "-s", args.subject, "-rs", args.reference_session, "-a", args.atlas_path,"-an",args.atlas_name,"-d", args.source_directory])
         args.atlas_path = os.path.join(args.source_directory,args.subject,'derivatives','ieeg_recon','module3',args.subject+'_'+args.reference_session+'_space-T00mri_atlas-'+args.atlas_name+'.nii.gz')
-
+    
+    
+    # Determine atlas lookup parameters
+    atlas_lookup_params = get_atlas_lookup_params(args)
     run_core_module3(args, atlas_lookup_params)
 
 def main():

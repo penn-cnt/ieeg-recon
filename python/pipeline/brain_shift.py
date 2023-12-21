@@ -4,7 +4,6 @@ import os
 import numpy as np
 import nibabel as nib
 import ants
-from mayavi import mlab
 
 
 ## Argument Parser
@@ -37,10 +36,14 @@ mod3_folder = os.path.join(source_dir,subject,'derivatives','ieeg_recon', 'modul
 freesurfer_dir = args.freesurfer_dir
 
 # Load the MRI
+
+has_ras = False
+
 if os.path.exists(os.path.join(clinical_module_dir,'MRI_RAS', subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w.nii.gz')):
     img_path = os.path.join(clinical_module_dir,'MRI_RAS', subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w.nii.gz')
 else:
     img_path = os.path.join(clinical_module_dir, subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w_ras.nii.gz')
+    has_ras = True
 
 # Load the freesurfer data
 lh_pial = nib.freesurfer.read_geometry(os.path.join(freesurfer_dir,'surf/lh.pial'))
@@ -159,48 +162,51 @@ result = minimize(objective, x0, constraints=cons)
 
 optimized_e = result.x.reshape(N, 3)
 
-#### Create a figure of before and after ####
-
-# Before
-mlab.triangular_mesh(transformed_vertices[:, 0], transformed_vertices[:, 1], transformed_vertices[:, 2], triangles, color=(1,0.85,0.85))
-#mlab.triangular_mesh(vertices[:, 0], vertices[:, 1], vertices[:, 2], triangles)
-
-# Assuming electrode_coordinates is already defined
-for coord in electrode_coordinates:
-    mlab.points3d(coord[0], coord[1], coord[2], scale_factor=4, color=(1, 0, 0)) # Scale factor is double the radius
-
-
-# Define a function to adjust the camera view and save it
-def save_view(azimuth, elevation, filename):
-    mlab.view(azimuth=azimuth, elevation=elevation)
-    mlab.savefig(filename)
-
-# Save left, right, top, and bottom views
-save_view(0, 0, os.path.join(brainshift_folder,'top_view_before.png'))
-save_view(0, 180, os.path.join(brainshift_folder,'bottom_view_before.png'))
-save_view(0, 90, os.path.join(brainshift_folder,'right_view_before.png'))
-save_view(0, -90, os.path.join(brainshift_folder,'left_view_before.png'))
-
-
-# After
-mlab.triangular_mesh(transformed_vertices[:, 0], transformed_vertices[:, 1], transformed_vertices[:, 2], triangles, color=(1,0.85,0.85))
-#mlab.triangular_mesh(vertices[:, 0], vertices[:, 1], vertices[:, 2], triangles)
-
-# Assuming electrode_coordinates is already defined
-for coord in optimized_e:
-    mlab.points3d(coord[0], coord[1], coord[2], scale_factor=4, color=(1, 0, 0)) # Scale factor is double the radius
-
-
-# Define a function to adjust the camera view and save it
-def save_view(azimuth, elevation, filename):
-    mlab.view(azimuth=azimuth, elevation=elevation)
-    mlab.savefig(filename)
-
-# Save left, right, top, and bottom views
-save_view(0, 0, os.path.join(brainshift_folder,'top_view_after.png'))
-save_view(0, 180, os.path.join(brainshift_folder,'bottom_view_after.png'))
-save_view(0, 90, os.path.join(brainshift_folder,'right_view_after.png'))
-save_view(0, -90, os.path.join(brainshift_folder,'left_view_after.png'))
+# Check if inside a docker container, if so, do not create the visualizations (it crashes unfortunately)
+if os.path.exists("/opt/ieeg_recon/ieeg-recon/python/docker"):
+    from mayavi import mlab
+    #### Create a figure of before and after ####
+    
+    # Before
+    mlab.triangular_mesh(transformed_vertices[:, 0], transformed_vertices[:, 1], transformed_vertices[:, 2], triangles, color=(1,0.85,0.85))
+    #mlab.triangular_mesh(vertices[:, 0], vertices[:, 1], vertices[:, 2], triangles)
+    
+    # Assuming electrode_coordinates is already defined
+    for coord in electrode_coordinates:
+        mlab.points3d(coord[0], coord[1], coord[2], scale_factor=4, color=(1, 0, 0)) # Scale factor is double the radius
+    
+    
+    # Define a function to adjust the camera view and save it
+    def save_view(azimuth, elevation, filename):
+        mlab.view(azimuth=azimuth, elevation=elevation)
+        mlab.savefig(filename)
+    
+    # Save left, right, top, and bottom views
+    save_view(0, 0, os.path.join(brainshift_folder,'top_view_before.png'))
+    save_view(0, 180, os.path.join(brainshift_folder,'bottom_view_before.png'))
+    save_view(0, 90, os.path.join(brainshift_folder,'right_view_before.png'))
+    save_view(0, -90, os.path.join(brainshift_folder,'left_view_before.png'))
+    
+    
+    # After
+    mlab.triangular_mesh(transformed_vertices[:, 0], transformed_vertices[:, 1], transformed_vertices[:, 2], triangles, color=(1,0.85,0.85))
+    #mlab.triangular_mesh(vertices[:, 0], vertices[:, 1], vertices[:, 2], triangles)
+    
+    # Assuming electrode_coordinates is already defined
+    for coord in optimized_e:
+        mlab.points3d(coord[0], coord[1], coord[2], scale_factor=4, color=(1, 0, 0)) # Scale factor is double the radius
+    
+    
+    # Define a function to adjust the camera view and save it
+    def save_view(azimuth, elevation, filename):
+        mlab.view(azimuth=azimuth, elevation=elevation)
+        mlab.savefig(filename)
+    
+    # Save left, right, top, and bottom views
+    save_view(0, 0, os.path.join(brainshift_folder,'top_view_after.png'))
+    save_view(0, 180, os.path.join(brainshift_folder,'bottom_view_after.png'))
+    save_view(0, 90, os.path.join(brainshift_folder,'right_view_after.png'))
+    save_view(0, -90, os.path.join(brainshift_folder,'left_view_after.png'))
 
 #### Rename the module 2 outputs to before brainshift
 
@@ -258,5 +264,8 @@ val = 0
 for coord in new_coords:
     val += 1
     new_spheres = generate_sphere(new_spheres, int(coord[0]), int(coord[1]), int(coord[2]), 2, val)
-
-nib.save(nib.Nifti1Image(new_spheres, volume_recon.affine),os.path.join(mod2_folder, subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w_electrode_spheres.nii.gz'))
+    
+if has_ras:
+    nib.save(nib.Nifti1Image(new_spheres, volume_recon.affine),os.path.join(mod2_folder, subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w_ras_electrode_spheres.nii.gz'))
+else:
+    nib.save(nib.Nifti1Image(new_spheres, volume_recon.affine),os.path.join(mod2_folder, subject+'_'+reference_session+'_acq-3D_space-T00mri_T1w_electrode_spheres.nii.gz'))
