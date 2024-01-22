@@ -70,7 +70,11 @@ conda install pyyaml
 
 ## Final Step: Verify Installation
 
-After installing all the packages, verify that everything is installed correctly. You can do this by trying to import the packages in a Python session.
+After installing all the packages, verify that everything is installed correctly. You can do this by running voxtool running the following inside the virtual environment:
+
+```
+python ieeg-recon/voxTool/launch_pyloc.py
+```
 
 ---
 
