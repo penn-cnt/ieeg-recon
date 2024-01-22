@@ -55,17 +55,10 @@ conda activate vt
 
 ## Step 4: Install Dependencies
 
-Install the necessary packages in the `vt` environment. In this section, please install one package after the other (sorry, it is tedious, but it ensures that everything is set up correctly)
+Install the necessary packages in the `vt` environment. In this section, please install one package after the other (sorry, it is tedious, but it ensures that everything is set up correctly). 
 
 ```
-conda install vtk
-conda install pyqt=4
-conda install mayavi
-conda install nibabel
-conda install pydicom=1.2
-conda install matplotlib
-conda install yaml
-conda install pyyaml
+conda install vtk && conda install pyqt=4 && conda install mayavi && conda install nibabel && conda install pydicom=1.2 && conda install matplotlib && conda install yaml && conda install pyyaml
 ```
 
 ## Final Step: Verify Installation
