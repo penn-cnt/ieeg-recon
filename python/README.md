@@ -17,6 +17,8 @@ We provide a GUI for convenience. All of the commands present in the GUI can be 
 
 Two versions of the GUI are available: one runs commands through a Docker container, the other runs commands natively in Python.
 
+The Windows version has only been tested with the Docker GUI. For installation instruction of the in Windows see [here](https://github.com/penn-cnt/ieeg-recon/blob/main/python/docs/Windows_Installation_Instructions.md)
+
 ## Manual VoxTool Installation
 
 For instructions on how to manually install voxtool (this is needed for Windows), please see here: [Manual Voxtool Installation](https://github.com/penn-cnt/ieeg-recon/blob/main/python/docs/Manual_Voxtool_Installation.md)
