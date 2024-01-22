@@ -17,6 +17,10 @@ We provide a GUI for convenience. All of the commands present in the GUI can be 
 
 Two versions of the GUI are available: one runs commands through a Docker container, the other runs commands natively in Python.
 
+## Manual VoxTool Installation
+
+For instructions on how to manually install voxtool (this is needed for Windows), please see here: [Manual Voxtool Installation](https://github.com/penn-cnt/ieeg-recon/blob/main/python/docs/Manual_Voxtool_Installation.md)
+
 ## Docker
 
 We recommend using the Docker container available here: https://hub.docker.com/repository/docker/lucasalf11/ieeg_recon
@@ -103,10 +107,6 @@ The Native Python version is the most flexible, but requires installing all of t
 - If you already have ITK-SNAP installed, use this command:
   ```
   sudo /Applications/ITK-SNAP.app/Contents/bin/install_cmdl.sh
-
-## Manual VoxTool Installation
-
-For instructions on how to manually install voxtool (this is needed for Windows), please see here: [Manual Voxtool Installation](https://github.com/penn-cnt/ieeg-recon/blob/main/python/docs/Manual_Voxtool_Installation.md)
 
 # Usage
 
