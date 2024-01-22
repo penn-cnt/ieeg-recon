@@ -104,6 +104,10 @@ The Native Python version is the most flexible, but requires installing all of t
   ```
   sudo /Applications/ITK-SNAP.app/Contents/bin/install_cmdl.sh
 
+## Manual VoxTool Installation
+
+For instructions on how to manually install voxtool (this is needed for Windows), please see here: [Manual Voxtool Installation](https://github.com/penn-cnt/ieeg-recon/blob/main/python/docs/Manual_Voxtool_Installation.md)
+
 # Usage
 
 For an overview of the pipeline as well as its usage see here: https://github.com/allucas/ieeg_recon/blob/main/figures/ieeg_recon.pdf
@@ -186,5 +190,6 @@ singularity run -B Desktop/BIDS/:/source_data ieeg_recon_1.0.sif -s sub-RID0031 
 ```
 
 This is identical to the Docker command, but the mount flag `-v` is replaced by `-B`
+
 
 
