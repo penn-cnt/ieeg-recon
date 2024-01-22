@@ -1,3 +1,7 @@
+# Installing Docker
+
+Please install docker following the instructions found [here](https://github.com/penn-cnt/ieeg-recon/blob/main/python/docs/Docker_Installation.md)
+
 # Installing Miniconda
 
 You need to have Miniconda installed on your system. Follow the instructions below based on your operating system.
@@ -6,7 +10,9 @@ You need to have Miniconda installed on your system. Follow the instructions bel
 2. Run the installer and follow the on-screen instructions.
 3. After installation, use the Anaconda Prompt for the following commands.
 
-## Installing Git:
+**Note about WSL:** I have tried WSL, and the Anaconda Prompt approach descibed above is a better option. If you get WSL working with this approach, let me know!
+
+# Installing Git:
 
 Install git by typing:
 
@@ -14,7 +20,7 @@ Install git by typing:
 conda install git
 ```
 
-## Clone the repository
+# Clone the repository
 
 Clone this repository by doing:
 
@@ -22,19 +28,19 @@ Clone this repository by doing:
 git clone https://github.com/penn-cnt/ieeg-recon.git
 ```
 
-## Install the GUI:
+# Install the GUI:
 
 After cloning, install the GUI by running:
 
 ```
-bash ieeg-recon/python/install_ieeg-recon_gui_linux.sh
+bash ieeg-recon/python/install_ieeg-recon_gui_windows.sh
 ```
 
-## Install VoxTool
+# Install VoxTool
 
 Due to differences in package dependencies, the Windows version of iEEG-recon requires a step-by-step installation of VoxTool. It can easily be done by following the instructions [here](https://github.com/penn-cnt/ieeg-recon/blob/main/python/docs/Manual_Voxtool_Installation.md)
 
-## Running iEEG-recon
+# Running iEEG-recon
 
 After all the steps above are completed, activate the `ieeg_recon` environment:
 
@@ -46,5 +52,5 @@ Then run the GUI by typing:
 
 
 ```
-python  ieeg-recon/python/ieeg_recon_gui_docker.py
+python  ieeg-recon/python/ieeg_recon_gui_docker_windows.py
 ```
