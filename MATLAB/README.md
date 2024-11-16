@@ -1,6 +1,6 @@
 # iEEG Implant Reconstruction Pipeline
 
-A MATLAB-based pipeline for reconstructing intracranial EEG (iEEG) electrode locations from post-implant CT and pre-implant MRI scans.
+MATLAB pipeline for reconstructing intracranial EEG (iEEG) electrode locations from post-implant CT and pre-implant MRI scans.
 
 ## Overview
 
@@ -27,7 +27,7 @@ This pipeline provides tools for:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/username/iEEG_implant_reconstruction.git
+   git clone https://github.com/n-sinha/iEEG_implant_reconstruction.git
    ```
 
 2. Add FSL to your shell profile:
@@ -155,10 +155,6 @@ The pipeline includes built-in quality assurance tools:
 - Electrode placement verification
 - Visual inspection tools
 
-## Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -171,4 +167,4 @@ If you use this software in your research, please cite:
 
 ## Support
 
-For bug reports and feature requests, please use the [GitHub Issue Tracker](https://github.com/username/iEEG_implant_reconstruction/issues).
+For bug reports and feature requests, please use the [GitHub Issue Tracker](https://github.com/n-sinha/iEEG_implant_reconstruction/issues).
