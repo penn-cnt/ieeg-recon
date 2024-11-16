@@ -18,5 +18,6 @@ See https://ieeg-recon.readthedocs.io/
 Paper
 ----------
 If you use IEEG-recon, please cite our paper:
-Alfredo Lucas, Brittany H Scheid, Akash Ranjan Pattnaik, Ryan Gallagher, Marissa Mojena, Ashley Tranquille, Brian Prager, Ezequiel Gleichgerrcht, Ruxue Gong, Brian Litt, Kathryn A Davis, Sandhitsu Das, Joel M Stein, & Nishant Sinha. (2023). iEEG-recon: A Fast and Scalable Pipeline for Accurate Reconstruction of Intracranial Electrodes and Implantable Devices. MedRxiv, 2023.06.12.23291286. https://doi.org/10.1101/2023.06.12.23291286
+
+**Lucas A, Scheid BH, Pattnaik AR, Gallagher R, Mojena M, Tranquille A, Prager B, Gleichgerrcht E, Gong R, Litt B, Davis KA, Das S, Stein JM, Sinha N. iEEG-recon: A fast and scalable pipeline for accurate reconstruction of intracranial electrodes and implantable devices. Epilepsia. 2024 Mar;65(3):817-829. doi: 10.1111/epi.17863. Epub 2024 Jan 10. PMID: 38148517; PMCID: PMC10948311.**
 
